@@ -78,7 +78,7 @@ class Template
 		$this->load('default','content',$content, $data);
 	}
 
-	private function auth($where,$kd=NULL,$mn=NULL)
+	private function auth($where,$kd=NULL,$mn=NULL, $ajax = NULL)
 	{
 		$CI =& get_instance();
 		$CI->load->model('M_user');
@@ -138,20 +138,23 @@ class Template
 				$update = 1;
 				$delete = 1;
 			}
-			$menu = $CI->M_nav_menu->show()->result();
-			$data_menu = array();
-	        foreach ($menu as $k) {
-	            $tmp = new stdClass;
-	            $tmp->desc_nav = $k->desc_nav;
-	            $tmp->fa = $k->fa;
-	            if ($cek->privilages_user == 1) {
-	            	$tmp->nav_content = $CI->M_nav_menu->nav_content_show(array('fk_id_nav'=>$k->id_nav))->result();
-	            }else{
-	            	$tmp->nav_content = $CI->M_permission->show_permissions_menu(array('fk_id_nav'=>$k->id_nav,'read_permissions'=> 1,'priv_permissions'=>$cek->privilages_user))->result();
-	            }
-	            $data_menu[] = $tmp;
-	        }
-			$this->sidebar_data['menu'] = $data_menu;
+			if ($ajax == NULL and $ajax != 'Y') {
+				# code...
+				$menu = $CI->M_nav_menu->show()->result();
+				$data_menu = array();
+		        foreach ($menu as $k) {
+		            $tmp = new stdClass;
+		            $tmp->desc_nav = $k->desc_nav;
+		            $tmp->fa = $k->fa;
+		            if ($cek->privilages_user == 1) {
+		            	$tmp->nav_content = $CI->M_nav_menu->nav_content_show(array('fk_id_nav'=>$k->id_nav))->result();
+		            }else{
+		            	$tmp->nav_content = $CI->M_permission->show_permissions_menu(array('fk_id_nav'=>$k->id_nav,'read_permissions'=> 1,'priv_permissions'=>$cek->privilages_user))->result();
+		            }
+		            $data_menu[] = $tmp;
+		        }
+				$this->sidebar_data['menu'] = $data_menu;
+			}
 			// $this->template_data['name'] = $CI->session->userdata('username');
 			$this->sidebar_data['priv'] = $cek->privilages_user;
 			// $this->template_data['fullname'] = $cek->user_fullname;
@@ -165,14 +168,14 @@ class Template
 		return;
 	}
 
-	public function authlogin($kd=NULL,$mn=NULL)
+	public function authlogin($kd=NULL,$mn=NULL,$just_ajax = NULL)
 	{
 		$CI =& get_instance();
 		$where = array(
 			'b.session' => $CI->session->userdata('session'),
 			'a.flag'=> 0
 			);
-		$this->auth($where,$kd,$mn);
+		$this->auth($where,$kd,$mn,$just_ajax);
 	}
 
 	public function if_admin()
