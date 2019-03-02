@@ -95,7 +95,7 @@
               <li><a href="#change_photo" data-toggle="tab">Change photo</a></li>
             </ul>
             <div class="tab-content">
-              <div class=" activetab-pane" id="settings">
+              <div class=" active tab-pane" id="settings">
                 <form class="form-horizontal" id="form_settings">
                   <div class="form-group">
                     <label for="inputFullName" class="col-sm-2 col-xs-3 control-label">Full Name</label>
