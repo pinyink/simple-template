@@ -72,6 +72,7 @@ class User extends CI_Controller {
             $row[] = $u->username.' '.$online;
             $row[] = $u->desc_priv;
             $row[] = $u->create_at;
+            $row[] = '<span class="label" style="background-color:'.$u->color_user_status.'">'.$u->desc_user_status.'</span>';
             $row[] =    "<button class='btn btn-sm btn-primary btn-flat' data-toggle='tooltip' data-placement='top' title='edit data' onclick=\"edit('".$u->id_user."')\"><i class='fa fa-edit'></i></button> ".
                         "<button class='btn btn-sm btn-danger btn-flat' data-toggle='tooltip' data-placement='top' title='reset password' onclick=\"reset('".$u->id_user."','".$u->username."')\"><i class='fa fa-key'></i></button>";
  

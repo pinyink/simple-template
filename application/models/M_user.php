@@ -10,9 +10,10 @@ class M_user extends CI_Model {
 
 	public function lihat($Value)
 	{
-		$this->db->select('a.id_user,a.username,a.privilages_user, c.user_fullname,c.photo, a.flag');
+		$this->db->select('a.id_user,a.username,a.privilages_user, c.user_fullname,c.photo, a.flag, d.desc_user_status, d.color_user_status');
 		$this->db->join('tbl_online b', 'a.id_user = b.id_user');
 		$this->db->join('tbl_user_desc c', 'a.id_user = c.id_user','left');
+		$this->db->join('tbl_user_status d', 'a.flag = d.id_user_status', 'left');
 		$this->db->where($Value);
 		return $this->db->get('tbl_user a');
 	}
@@ -40,10 +41,12 @@ class M_user extends CI_Model {
  
     private function _get_datatables_query()
 	{
-		$this->db->select('a.id_user, a.username, a.privilages_user, a.create_at,DATE_FORMAT(a.create_at,"%d/%m/%Y %H:%i:%s") as create_at, b.desc_priv, c.session');
+		$this->db->select('a.id_user, a.username, a.privilages_user, a.create_at,DATE_FORMAT(a.create_at,"%d/%m/%Y %H:%i:%s") as create_at, b.desc_priv,
+						c.session, d.desc_user_status, d.color_user_status');
 		$this->db->from($this->table.' a');
 		$this->db->join('tbl_privilages b', 'a.privilages_user = b.id_priv', 'left');
 		$this->db->join('tbl_online c', 'a.id_user = c.id_user', 'left');
+		$this->db->join('tbl_user_status d', 'a.flag = d.id_user_status', 'left');
 		$i = 0;
 	
 		foreach ($this->column_search as $item) // loop column 

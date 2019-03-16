@@ -39,13 +39,14 @@
         <div class="box-body">
           <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
-              <table id="table" class="table table-bordered table-striped" cellspacing="0" width="100%">
+              <table id="table" class="table table-bordered table-striped text-center" cellspacing="0" width="100%">
                   <thead>
                       <tr>
                           <th>No</th>
                           <th>username</th>
                           <th>privilages</th>
                           <th>created</th>
+                          <th>Status</th>
                           <th></th>
                       </tr>
                   </thead>
