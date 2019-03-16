@@ -34,6 +34,8 @@ class User extends CI_Controller {
         $this->form_validation->set_rules('password', 'Password', 'required',
                 array('required' => 'You must provide a %s.')
         );
+        $this->form_validation->set_rules('status', 'status user', 'trim|required|min_length[1]|max_length[2]|numeric');
+        $status = $this->input->post("status");
         $password = $this->input->post('password');
         $password = md5($password);
         $priv = $this->input->post('priv');
@@ -46,6 +48,7 @@ class User extends CI_Controller {
                 'username' => $username,
                 'password' => $password,
                 'privilages_user' => $priv,
+                'flag' => $status,
                 'create_at' => date('Y-m-d H:i:s')
                 );
             $query = $this->M_user->insert_user($data);
@@ -92,7 +95,8 @@ class User extends CI_Controller {
     public function ajax_privilages()
     {
         $data = array(
-            'data' => $this->_privilages()
+            'data' => $this->_privilages(),
+            'status' => $this->_user_status()
             );
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
         // echo json_encode($data);
@@ -105,12 +109,20 @@ class User extends CI_Controller {
         return $result;
     }
 
+    private function _user_status()
+    {
+        $this->load->model('M_user');
+        $result = $this->M_user->user_status_show()->result();
+        return $result;
+    }
+
     public function ajax_edit($id)
     {
         $query = $this->M_user->lihat2(array('a.id_user'=>$id))->row();
         $data = array(
             'result' => $query,
-            'data' => $this->_privilages()
+            'data' => $this->_privilages(),
+            'status' => $this->_user_status()
             );
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
         // echo json_encode($data);
@@ -123,13 +135,16 @@ class User extends CI_Controller {
         $this->form_validation->set_rules('priv', 'Privilages', 'required|numeric');
         $priv = $this->input->post('priv');
         $this->form_validation->set_rules('id_user', 'ID User', 'required|max_length[36]');
+        $this->form_validation->set_rules('status', 'status user', 'trim|required|min_length[1]|max_length[2]|numeric');
+        $status = $this->input->post("status");
         $id_user = $this->input->post('id_user');
         if ($this->form_validation->run() == FALSE) {
             echo json_encode(array('status'=> 0,'ket'=> validation_errors()));
         }else{
             $data = array(
                 'username' => $username,
-                'privilages_user' => $priv
+                'privilages_user' => $priv,
+                'flag' => $status
                 );
             $query = $this->M_user->update_user($id_user, $data);
             $this->output->set_content_type('application/json')->set_output(json_encode(array('status'=>'ok')));

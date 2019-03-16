@@ -45,11 +45,17 @@
       success: function(data)
       {
         save_method = 'add';
+        $('[name="password"]').attr("disabled",false);
         $('#form_add')[0].reset();
         $('select[name="priv"]').empty();
         $('select[name="priv"]').append('<option value="">-</option>');
         $.each(data.data, function(key, value) {
           $('select[name="priv"]').append('<option value="'+ value.id_priv +'">'+ value.desc_priv +'</option>');
+        });
+        $('select[name="status"]').empty();
+        $('select[name="status"]').append('<option value="">-</option>');
+        $.each(data.status, function(key, value) {
+          $('select[name="status"]').append('<option value="'+ value.id_user_status +'">'+ value.desc_user_status +'</option>');          
         });
         $('#modal_add .modal-title').text('Add User');
         $('#modal_add').modal('show'); // show bootstrap modal
@@ -90,6 +96,16 @@
           }
           else{
             $('select[name="priv"]').append('<option value="'+ value.id_priv +'">'+ value.desc_priv +'</option>');
+          }          
+        });
+        $('select[name="status"]').empty();
+        $('select[name="status"]').append('<option value="">-</option>');
+        $.each(data.status, function(key, value) {
+          if (value.id_user_status == data.result.flag) {
+            $('select[name="status"]').append('<option value="'+ value.id_user_status +'" selected="selected">'+ value.desc_user_status +'</option>');
+          }
+          else{
+            $('select[name="status"]').append('<option value="'+ value.id_user_status +'">'+ value.desc_user_status +'</option>');
           }          
         });
         $('#modal_add .modal-title').text('Edit User');

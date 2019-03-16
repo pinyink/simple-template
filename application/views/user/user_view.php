@@ -105,6 +105,15 @@
                 </div>
               </div>
             </div>
+            <div class="form-body">
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-3">Status</label>
+                <div class="col-md-7 col-sm-7 col-xs-7">
+                  <select class="form-control" name="status" required>
+                  </select>
+                </div>
+              </div>
+            </div>
           </form>
         </div>
         <div class="modal-footer">

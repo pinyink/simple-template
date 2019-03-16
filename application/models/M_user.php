@@ -10,23 +10,23 @@ class M_user extends CI_Model {
 
 	public function lihat($Value)
 	{
-		$this->db->select('a.id_user,a.username,a.privilages_user, c.user_fullname,c.photo, a.flag, d.desc_user_status, d.color_user_status');
+		$this->db->select('a.id_user,a.username,a.privilages_user, c.user_fullname,c.photo, a.flag');
 		$this->db->join('tbl_online b', 'a.id_user = b.id_user');
 		$this->db->join('tbl_user_desc c', 'a.id_user = c.id_user','left');
-		$this->db->join('tbl_user_status d', 'a.flag = d.id_user_status', 'left');
 		$this->db->where($Value);
 		return $this->db->get('tbl_user a');
 	}
 
 	public function lihat2($Value)
 	{
-		$this->db->select('a.id_user,a.username,a.privilages_user, c.user_fullname,c.photo, a.flag');
+		$this->db->select('a.id_user,a.username,a.privilages_user, c.user_fullname,c.photo, a.flag, d.desc_user_status, d.color_user_status');
 		$this->db->join('tbl_user_desc c', 'a.id_user = c.id_user','left');
+		$this->db->join('tbl_user_status d', 'a.flag = d.id_user_status', 'left');
 		$this->db->where($Value);
 		return $this->db->get('tbl_user a');
 	}
 
-	public function insert_User($data)
+	public function insert_user($data)
 	{
 		$this->db->insert($this->table, $data);
 		return true;
@@ -101,6 +101,14 @@ class M_user extends CI_Model {
 	{
 		$this->db->from($this->table);
 		return $this->db->count_all_results();
+	}
+
+	public function user_status_show($value=array())
+	{
+		# code...
+		$this->db->select('id_user_status, desc_user_status, color_user_status');
+		$this->db->where($value);
+		return $this->db->get('tbl_user_status');
 	}
 
 }
