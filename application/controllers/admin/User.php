@@ -221,6 +221,7 @@ class User extends CI_Controller {
             $row[] = $id;
             $row[] = $u->desc_user_status;
             $row[] = '<span class="label" style="background-color:'.$u->color_user_status.';">'.$u->color_user_status.'</span>';
+            $row[]= $u->allow_to_login == 0 ? 'Yes' : 'No';
             $row[] =    "<button class='btn btn-sm btn-primary btn-flat' data-toggle='tooltip' data-placement='top' title='edit data' onclick=\"edit_status('".$id."')\"><i class='fa fa-edit'></i></button> ";
  
             $data[] = $row;
@@ -250,14 +251,17 @@ class User extends CI_Controller {
     {
         $this->form_validation->set_rules('desc_status', 'Description', 'trim|required|min_length[1]|max_length[32]|alpha_numeric_spaces');
         $this->form_validation->set_rules('color_status', 'Color', 'trim|required|min_length[5]|max_length[8]');
+        $this->form_validation->set_rules('alto', 'allow to login', 'trim|required|min_length[1]|max_length[2]|numeric');
         $desc = $this->input->post("desc_status");
         $color = $this->input->post("color_status");
+        $alto = $this->input->post("alto");
         if ($this->form_validation->run() == FALSE) {
             echo json_encode(array('status'=> 0,'ket'=> validation_errors()));
         }else{
             $data = array(
                 'desc_user_status' => $desc,
-                'color_user_status' => $color
+                'color_user_status' => $color,
+                'allow_to_login' => $alto
                 );
             $query = $this->M_user->insert_status($data);
             echo json_encode(array('status'=> 1));
@@ -270,17 +274,20 @@ class User extends CI_Controller {
         $this->form_validation->set_rules('id_status', 'fieldlabel', 'trim|required|min_length[1]|max_length[3]|numeric');
         $this->form_validation->set_rules('desc_status', 'Description', 'trim|required|min_length[1]|max_length[32]|alpha_numeric_spaces');
         $this->form_validation->set_rules('color_status', 'Color', 'trim|required|min_length[5]|max_length[8]');
+        $this->form_validation->set_rules('alto', 'allow to login', 'trim|required|min_length[1]|max_length[2]|numeric');
         $id = $this->input->post("id_user_status");
         $id_change = $this->input->post("id_status");
         $desc = $this->input->post("desc_status");
         $color = $this->input->post("color_status");
+        $alto = $this->input->post("alto");
         if ($this->form_validation->run() == FALSE) {
             echo json_encode(array('status'=> 0,'ket'=> validation_errors()));
         }else{
             $data = array(
                 "id_user_status" => $id_change,
                 'desc_user_status' => $desc,
-                'color_user_status' => $color
+                'color_user_status' => $color,
+                'allow_to_login' => $alto
                 );
             $query = $this->M_user->update_user_status($id,$data);
             echo json_encode(array('status'=> 1));

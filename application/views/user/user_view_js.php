@@ -251,6 +251,10 @@
     $('#form_status')[0].reset();
     $('#color_review').removeAttr('style');
     $('[name="id_status"]').attr('disabled', 'disabled');
+    $('select[name="alto"]').empty();
+    $('select[name="alto"]').append('<option value="">-</option>');
+    $('select[name="alto"]').append('<option value="0">Yes</option>');
+    $('select[name="alto"]').append('<option value="1">No</option>');
     $('#modal_user_status').modal('show');
     $('#modal_user_status .modal-title').text('Add New User Status');
   }
@@ -272,6 +276,20 @@
         $('[name="id_status"]').val(data.result.id_user_status);
         $('[name="desc_status"]').val(data.result.desc_user_status);
         $('[name="color_status"]').val(data.result.color_user_status);
+        $('select[name="alto"]').empty();
+        $('select[name="alto"]').append('<option value="">-</option>');
+        if (data.result.allow_to_login == 0) {
+          $('select[name="alto"]').append('<option value="0" selected>Yes</option>');
+        }
+        else{
+          $('select[name="alto"]').append('<option value="0">Yes</option>');
+        }
+        if (data.result.allow_to_login == 1) {
+          $('select[name="alto"]').append('<option value="1" selected>No</option>');
+        }
+        else{
+          $('select[name="alto"]').append('<option value="1">No</option>');
+        }
         $('#modal_user_status').modal('show');
         $('#modal_user_status .modal-title').text('Edit User Status');
       },

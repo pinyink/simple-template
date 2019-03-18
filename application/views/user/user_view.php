@@ -89,6 +89,7 @@
                           <th>Id</th>
                           <th>Desc</th>
                           <th>Color</th>
+                          <th>Allow to Login</th>
                           <th></th>
                       </tr>
                   </thead>
@@ -240,6 +241,15 @@
                       <i id="color_review"></i>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-body">
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-3">Allow to Login</label>
+                <div class="col-md-7 col-sm-7 col-xs-7">
+                  <select class="form-control" name="alto" required>
+                  </select>
                 </div>
               </div>
             </div>

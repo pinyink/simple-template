@@ -38,7 +38,7 @@ class login extends CI_Controller {
 			$row = $query->row();
 			$sesi = $this->uuid->v4();
 			if($cek == 1){
-				if ($row->flag == 0) {
+				if ($row->allow_to_login == 0) {
 					$data_session = array(
 						'id' => $row->id_user,
 						'session' => $sesi,
@@ -63,9 +63,9 @@ class login extends CI_Controller {
 					//echo " login berhasil";
 					$log['status']= 'y';
 				}
-				else if($row->flag == 1){
+				else{
 					$log['status'] = 'x';
-					$log['keterangan'] = 'your account is not active';
+					$log['keterangan'] = 'your account is '.$row->desc_user_status.'. Administrator not allowed You to Login';
 				}
 			}else{
 				$log['status'] = 'x';
