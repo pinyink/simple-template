@@ -141,6 +141,8 @@ class User extends CI_Controller {
     {
         $this->form_validation->set_rules('username', 'Username', 'required|min_length[3]|max_length[32]');
         $username = $this->input->post('username');
+        $this->form_validation->set_rules('username2', 'Username', 'required|min_length[3]|max_length[32]');
+        $username2 = $this->input->post('username2');
         $this->form_validation->set_rules('priv', 'Privilages', 'required|numeric');
         $priv = $this->input->post('priv');
         $this->form_validation->set_rules('id_user', 'ID User', 'required|max_length[36]');
@@ -151,7 +153,7 @@ class User extends CI_Controller {
         if ($this->form_validation->run() == FALSE) {
             echo json_encode(array('status'=> 0,'ket'=> validation_errors()));
         }else{
-            $validasi_user = $this->M_user->lihat_by(array('username'=>$username))->num_rows(); 
+            $validasi_user = $this->M_user->lihat_by("username = '".$username2."' and id_user != '".$id_user."'")->num_rows(); 
             if ($validasi_user === 0) {
                 # code...
                 $data = array(
@@ -172,7 +174,8 @@ class User extends CI_Controller {
             }
             else{
                 $data['status'] = 0;
-                $data['ket'] = 'username '.$username.' used by other';
+                // $data['ket'] = 'username '.$username.' used by other';
+                $data['ket'] = $validasi_user;
             }
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }

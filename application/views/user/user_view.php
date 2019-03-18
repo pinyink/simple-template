@@ -119,6 +119,7 @@
         <div class="modal-body form">
          <form action="#" id="form_add" class="form-horizontal">
             <input type="hidden" value="" name="id_user"/>
+            <input type="hidden" value="" name="username2"/>
             <div class="form-body">
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-3">Username</label>

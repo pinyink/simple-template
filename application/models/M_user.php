@@ -35,6 +35,7 @@ class M_user extends CI_Model {
 	{
 		# code...
 		$this->db->select('id_user, username');
+		$this->db->where($value);
 		return $this->db->get($this->table);
 	}
 

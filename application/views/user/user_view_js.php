@@ -114,6 +114,7 @@
       {
         $('[name="id_user"]').val(data.result.id_user);
         $('[name="username"]').val(data.result.username);
+        $('[name="username2"]').val(data.result.username);
         $('[name="password"]').attr("disabled",'disabled');
         $('select[name="priv"]').empty();
         $('select[name="priv"]').append('<option value="">-</option>');
