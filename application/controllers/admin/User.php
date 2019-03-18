@@ -153,7 +153,7 @@ class User extends CI_Controller {
         if ($this->form_validation->run() == FALSE) {
             echo json_encode(array('status'=> 0,'ket'=> validation_errors()));
         }else{
-            $validasi_user = $this->M_user->lihat_by("username = '".$username2."' and id_user != '".$id_user."'")->num_rows(); 
+            $validasi_user = $this->M_user->lihat_by("username = '".$username."' and id_user != '".$id_user."'")->num_rows(); 
             if ($validasi_user === 0) {
                 # code...
                 $data = array(
@@ -174,8 +174,8 @@ class User extends CI_Controller {
             }
             else{
                 $data['status'] = 0;
-                // $data['ket'] = 'username '.$username.' used by other';
-                $data['ket'] = $validasi_user;
+                $data['ket'] = 'username '.$username.' used by other';
+                // $data['ket'] = $validasi_user;
             }
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
