@@ -141,7 +141,7 @@
       },
       error: function (jqXHR, textStatus, errorThrown)
       {
-          notification('Error loading from ajax !!!');
+          notify('error', 'error', 'Error loading from ajax');
       }
     });
   }
