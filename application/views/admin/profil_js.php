@@ -1,4 +1,5 @@
 <script type="text/javascript" charset="utf-8" async defer>
+var percen;
 
 $(document).ready(function() {
   $.ajax({
@@ -53,17 +54,23 @@ $(document).ready(function() {
       contentType:false,
       cache : false,
       async : true,
+      beforeSend: function() {
+        // setting a timeout
+          $(".progress-bar").width(0);
+          $('#sr_only').text(0+'%');
+      },
       xhr: function(){
         // get the native XmlHttpRequest object
         var xhr = $.ajaxSettings.xhr() ;
         // set the onprogress event handler
         xhr.upload.onprogress = function(evt){ 
-          var percen = evt.loaded/evt.total*100;
+          percen = Math.round(evt.loaded/evt.total*100);
           // console.log('progress', evt.loaded/evt.total*100);
           $('.progress-container').show();
           $(".progress-bar").animate({
             width: percen+"%"
           });
+          $('#sr_only').text(percen+'%');
         } ;
         // set the onload event handler
         xhr.upload.onload = function(){ 
@@ -83,10 +90,10 @@ $(document).ready(function() {
         notify('error', 'error', data.error.error);
       }
       else{
-        $('.profile-user-img').attr("src", data.result);
-        $('#photo1').attr("src", data.result);
-        $('#photo2').attr("src", data.result);
-        $('#photo9').attr("src", data.result);
+        // $('.profile-user-img').attr("src", data.result);
+        // $('#photo1').attr("src", data.result);
+        // $('#photo2').attr("src", data.result);
+        // $('#photo9').attr("src", data.result);
         notify('success', 'success','upload successfully');
       }
     })

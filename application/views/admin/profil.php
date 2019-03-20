@@ -154,7 +154,7 @@
                 </form>
                 <div class="progress-container">
                   <div class="progress progress-striped active">
-                    <div class="progress-bar progress-bar-success" style="width:0%"></div>
+                    <div class="progress-bar progress-bar-success" style="width:0%"><span id="sr_only"></span></div>
                   </div>
                 </div>
               </div>
