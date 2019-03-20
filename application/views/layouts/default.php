@@ -52,6 +52,8 @@
 <script src="<?php echo base_url().'assets/themes/adminlte'; ?>/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url().'assets/themes/adminlte'; ?>/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- jQuery Form -->
+<script src="<?php echo base_url().'assets/themes/adminlte'; ?>/bower_components/form/dist/jquery.form.min.js"></script>
 </head>
 <body class="hold-transition skin-purple sidebar-mini" style="height: auto; min-height: 100%;">
 <!-- Site wrapper -->

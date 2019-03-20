@@ -10,6 +10,10 @@
     -webkit-box-shadow: 0 0 1px 1px rgba(0, 0, 0, .3);
     display: inline-block;
   }
+  .progress.active .progress-bar {
+    -webkit-transition: none !important;
+    transition: none !important;
+  }
 </style>
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -127,7 +131,7 @@
               <!-- /.tab-pane -->
 
               <div class="tab-pane" id="change_photo">
-                <form class="form-horizontal" id="form_change_photo">
+                <form class="form-horizontal" id="form_change_photo" method="post" enctype="multipart/form-data" action="<?php echo base_url().'profil/change_photo'; ?>">
                   <div class="form-group">
                     <div class="col-sm-offset-2 col-xs-offset-2 col-sm-4 col-xs-7">
                       <div id="image-holder"></div>
@@ -136,7 +140,7 @@
                   <div class="form-group">
                     <div class="col-sm-offset-2 col-xs-offset-2 col-sm-4 col-xs-7">
                       <label class="btn btn-sm btn-flat btn-info btn-block">
-                        choose<input type="file" name="profil_photo" hidden accept="image/png, image/jpeg, image/jpg">
+                        choose<input type="file" name="profil_photo" hidden accept="image/png, image/jpeg, image/jpg" id="outputImage">
                       </label>
                     </div>
                   </div>
@@ -148,9 +152,9 @@
                     </div>
                   </div>
                 </form>
-                <div id="progres_upload" class="progress progress-sm active">
-                  <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                    <span class="sr-only">20% Complete</span>
+                <div class="progress-container">
+                  <div class="progress progress-striped active">
+                    <div class="progress-bar progress-bar-success" style="width:0%"></div>
                   </div>
                 </div>
               </div>

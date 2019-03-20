@@ -18,7 +18,7 @@ $(document).ready(function() {
       notify('error', 'error', 'Load data error');
     }
   });
-  $('#progres_upload').hide();
+  $('.progress-container').hide();
 });
 
   $( "#form_settings" ).submit(function( event ) {
@@ -40,10 +40,11 @@ $(document).ready(function() {
       }
     });
     event.preventDefault();
-    });
+    });  
 
   $('#form_change_photo').submit(function(event) {
     /* Act on the event */
+    event.preventDefault();
     $.ajax({
       url: "<?php echo base_url().'profil/change_photo'; ?>",
       type: "POST",
@@ -51,7 +52,31 @@ $(document).ready(function() {
       processData: false,
       contentType:false,
       cache : false,
-      async : false,
+      async : true,
+      xhr: function(){
+        // get the native XmlHttpRequest object
+        var xhr = $.ajaxSettings.xhr() ;
+        // set the onprogress event handler
+        xhr.upload.onprogress = function(evt){ 
+          var percen = evt.loaded/evt.total*100;
+          // console.log('progress', evt.loaded/evt.total*100);
+          $('.progress-container').show();
+          $(".progress-bar").animate({
+            width: percen+"%"
+          });
+        } ;
+        // set the onload event handler
+        xhr.upload.onload = function(){ 
+          setTimeout(
+            function() 
+            {
+              //do something special
+              $('.progress-container').hide();
+            }, 1000);
+        } ;
+        // return the customized object
+        return xhr ;
+      }
     })
     .done(function(data) {
       if (data.stat == 0) {
@@ -68,7 +93,7 @@ $(document).ready(function() {
     .fail(function() {
       notify('error', 'error', "error");
     });
-    event.preventDefault();
+
   });
 
   $('#form_change_password').submit(function(event) {
