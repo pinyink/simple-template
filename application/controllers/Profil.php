@@ -120,13 +120,20 @@ class Profil extends CI_Controller {
 		$config['upload_path'] = './assets/image/profil';
 		$config['allowed_types'] = 'gif|jpg|png';
 		$config['max_size']  = '2000';
-		$config['file_name']  = $this->session->userdata('id');
+		$config['file_name']  = $this->session->userdata('id').date('d_m_Y_H_i_s');
 		$config['overwrite']  = TRUE;
 		
 		$this->load->library('upload', $config);
 		$data = array();
 		$cek = $this->M_profil->cek(array('id_user'=>$this->session->userdata('id')));
-		if ($cek == 1) {
+		if ($cek->num_rows() == 1) {
+			$cek_row = $cek->row();
+			$remove = './assets/image/profil/'.$cek_row->photo;
+			// $data['log'] = $cek_row;
+			if (file_exists($remove)) {
+				unlink($remove);
+			}
+			// unlink($remove);
 			if ( ! $this->upload->do_upload('profil_photo')){
 				$data['error'] = array('error' => $this->upload->display_errors());
 				$data['stat'] = 0;

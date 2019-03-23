@@ -90,11 +90,12 @@ $(document).ready(function() {
         notify('error', 'error', data.error.error);
       }
       else{
-        // $('.profile-user-img').attr("src", data.result);
-        // $('#photo1').attr("src", data.result);
-        // $('#photo2').attr("src", data.result);
-        // $('#photo9').attr("src", data.result);
+        $('.profile-user-img').attr("src", data.result);
+        $('#photo1').attr("src", data.result);
+        $('#photo2').attr("src", data.result);
+        $('#photo3').attr("src", data.result);
         notify('success', 'success','upload successfully');
+        // console.log(data.log);
       }
     })
     .fail(function() {

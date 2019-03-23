@@ -63,9 +63,9 @@
     <!-- Logo -->
     <a href="<?php echo base_url(); ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      <span class="logo-mini"><b>S</b>TE</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+      <span class="logo-lg"><b>Simple</b> Template</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -165,13 +165,13 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="<?php echo $photo; ?>" class="user-image" alt="User Image">
+              <img src="<?php echo $photo; ?>" class="user-image" alt="User Image" id="photo2">
               <span class="hidden-xs" id="ms_name1"><?php echo $fullname; ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="<?php echo $photo; ?>" class="img-circle" alt="User Image">
+                <img src="<?php echo $photo; ?>" class="img-circle" alt="User Image" id="photo1">
 
                 <p>
                   <span id="ms_name2">
@@ -223,10 +223,9 @@
   
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
+      <b>Simple Template </b> v 1.0
     </div>
-    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
-    reserved. {elapsed_time} <?php echo $this->benchmark->memory_usage();?>
+    <strong>Theme by Admin LTE.</strong> elapsed time {elapsed_time} and memory usage<?php echo $this->benchmark->memory_usage();?>
   </footer>
 
   <!-- control-sidebar -->

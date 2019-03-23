@@ -6,10 +6,10 @@ class M_profil extends CI_Model {
 
 	public function cek($value)
 	{
-		$this->db->select('id_user');
+		$this->db->select('id_user, photo');
 		$this->db->where($value);
 		$query = $this->db->get($this->table);
-		return $query->num_rows();
+		return $query;
 	}
 
 	public function update_profil($id, $data)

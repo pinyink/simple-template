@@ -49,6 +49,12 @@ class Coba extends CI_Controller {
 		$this->template->adminlte('layouts/home', $data);
 	}
 
+	public function date($value='')
+	{
+		# code...
+		echo date('d_m_Y_H_i_s');
+	}
+
 }
 
 /* End of file Coba.php */
