@@ -155,7 +155,7 @@ class Template
 		        }
 				$this->sidebar_data['menu'] = $data_menu;
 			}
-			// $this->template_data['name'] = $CI->session->userdata('username');
+			$this->template_data['name'] = $CI->session->userdata('username');
 			$this->sidebar_data['priv'] = $cek->privilages_user;
 			// $this->template_data['fullname'] = $cek->user_fullname;
 			$this->sidebar_data['fullname'] = $cek->user_fullname;
