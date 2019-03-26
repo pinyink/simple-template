@@ -47,7 +47,7 @@ class Profil extends CI_Controller {
 				'fullname' => $fullname
 				);
 			$query = '';
-			$cek = $this->M_profil->cek(array('id_user'=>$this->session->userdata('id')));
+			$cek = $this->M_profil->cek(array('id_user'=>$this->session->userdata('id')))->num_rows();
 			if ($cek == 1) {
 				$query = $this->M_profil->update_profil($this->session->userdata('id'),$data);
 			}

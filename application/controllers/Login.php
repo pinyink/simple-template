@@ -16,7 +16,7 @@ class login extends CI_Controller {
 
 	public function doLogin()
 	{
-		$this->form_validation->set_rules('txtUsername', 'Username', 'required|alpha_numeric');
+		$this->form_validation->set_rules('txtUsername', 'Username', 'required|min_length[3]|max_length[16]');
 		$this->form_validation->set_rules('txtPassword', 'Password', 'required',array('required' => 'You must provide a %s.'));
 		$username = $this->input->post('txtUsername');
 		$password = $this->input->post('txtPassword');
@@ -65,7 +65,7 @@ class login extends CI_Controller {
 				}
 				else{
 					$log['status'] = 'x';
-					$log['keterangan'] = 'your account is '.$row->desc_user_status.'. Administrator not allowed You to Login';
+					$log['keterangan'] = 'your account is '.$row->desc_user_status.'.<br/> Administrator not allowed '.$row->desc_user_status.' user to Login';
 				}
 			}else{
 				$log['status'] = 'x';

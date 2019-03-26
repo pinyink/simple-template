@@ -52,7 +52,15 @@ class Coba extends CI_Controller {
 	public function date($value='')
 	{
 		# code...
-		echo date('d_m_Y_H_i_s');
+		// echo date('d_m_Y_H_i_s');
+		$data = "'a'=>'konfig 1','b'=>'konfig b'";
+		$hasil = explode(',',$data);
+		$result = array();
+		foreach ($hasil as $k) {
+			$u = explode('=>', $k);
+			$result[$u[0]] = $u[1];
+		}
+		print_r($result);
 	}
 
 }
