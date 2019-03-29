@@ -53,8 +53,8 @@ class User extends CI_Controller {
                     'username' => $username,
                     'password' => $password,
                     'privilages_user' => $priv,
-                    'flag' => $status,
-                    'create_at' => date('Y-m-d H:i:s')
+                    'flag' => $status
+                    // 'create_at' => date('Y-m-d H:i:s')
                     );
                 $query = $this->M_user->insert_user($data);
                 echo json_encode(array('status'=> 1));

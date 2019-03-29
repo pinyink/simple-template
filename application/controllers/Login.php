@@ -46,13 +46,13 @@ class login extends CI_Controller {
 						);
 					$data= array(
 						'id_user' => $row->id_user,
-						'session' => $sesi,
-						'date_time' => date('Y-m-d H:i:s')
+						'session' => $sesi
+						// 'date_time' => date('Y-m-d H:i:s')
 						);
 					$this->M_online->online($data);
 					$log = array(
 						'id_user' => $row->id_user,
-						'date_and_time' => date('Y-m-d H:i:s'),
+						// 'date_and_time' => date('Y-m-d H:i:s'),
 						'user_agents' => $user_agent,
 						'ip_address' => $ip,
 						'log' => 'login'
