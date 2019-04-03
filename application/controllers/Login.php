@@ -11,6 +11,15 @@ class login extends CI_Controller {
 
 	public function index()
 	{
+		$where = array(
+			'b.session' => $this->session->userdata('session'),
+			'a.flag'=> 0
+			);
+		$query = $this->M_user->lihat($where);
+		$cek = $query->row();
+		if($query->num_rows() == 1){
+			redirect(base_url("home"));
+		}
 		$this->load->view('v_login');
 	}
 

@@ -49,6 +49,16 @@ class Coba extends CI_Controller {
 		$this->template->adminlte('layouts/home', $data);
 	}
 
+	public function upload($value='')
+	{
+		$this->template->authlogin('y',1);
+		$data = array(
+			'hi' => "Halaman upload"
+			);
+		$this->template->set('title',"home bro");
+		$this->template->adminlte('layouts/home', $data);
+	}
+
 	public function date($value='')
 	{
 		# code...

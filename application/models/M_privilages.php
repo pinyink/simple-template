@@ -92,7 +92,7 @@ class M_privilages extends CI_Model {
 
 	public function show_permissions($value=array())
 	{
-		$this->db->select('id_permissions, priv_permissions, nav_permissions, read_permissions, create_permissions, update_permissions, delete_permissions');
+		$this->db->select('id_permissions, priv_permissions, nav_permissions, read_permissions, create_permissions, update_permissions, delete_permissions, upload_permissions');
 		$this->db->where($value);
 		return $this->db->get($this->table2);
 	}

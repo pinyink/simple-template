@@ -25,7 +25,7 @@ class M_permission extends CI_Model {
 
 	public function check_permission($value)
 	{
-		$this->db->select('id_permissions,read_permissions, create_permissions, update_permissions, delete_permissions');
+		$this->db->select('id_permissions,read_permissions, create_permissions, update_permissions, delete_permissions, upload_permissions');
 		$this->db->where($value);
 		return $this->db->get($this->table2,1);
 	}

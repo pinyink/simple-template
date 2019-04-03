@@ -149,6 +149,7 @@ class Priv extends CI_Controller {
             $tmp->create_check = '';
             $tmp->update_check = '';
             $tmp->delete_check = '';
+            $tmp->upload_check = '';
             foreach ($permission as $p) {
                 if ($p->nav_permissions == $value_menu->id_nav_content) {
                     if ($p->read_permissions == 1) {
@@ -163,6 +164,9 @@ class Priv extends CI_Controller {
                     if ($p->delete_permissions == 1) {
                         $tmp->delete_check = 'checked';
                     }
+                    if ($p->upload_permissions == 1) {
+                        $tmp->upload_check = 'checked';
+                    }
                 }
                 // $tmp->read_check = $p->nav_permissions === $value_menu->id_nav_content and $p->read_permissions === 1 ?  'checked' : '';
                 // $tmp->create_check = $p->nav_permissions === $value_menu->id_nav_content and $p->create_permissions === 1 ?  'checked' : '';
@@ -173,12 +177,14 @@ class Priv extends CI_Controller {
         }
         $data['menu'] = $data_menu;
         $data['priv'] = $id;
+        // print_r($data);
         // print_r($menu);
         $this->template->adminlte('admin/permission',$data,'admin/permission_js');
     }
 
     public function permission_aksi()
     {
+        $this->form_validation->set_rules('upload', 'upload', 'numeric');
         $this->form_validation->set_rules('read', 'read', 'numeric');
         $this->form_validation->set_rules('create', 'create', 'numeric');
         $this->form_validation->set_rules('update', 'update', 'numeric');
@@ -191,6 +197,7 @@ class Priv extends CI_Controller {
         $delete = $this->input->post('delete');
         $menu_content = $this->input->post('menu_content');
         $id = $this->input->post('id');
+        $upload = $this->input->post('upload');
         $result = array();
         $test = array();
         $this->load->model('M_permission');
@@ -204,13 +211,15 @@ class Priv extends CI_Controller {
                 $v_create = isset($create[$mc]) ? $create[$mc]:0;
                 $v_update = isset($update[$mc]) ? $update[$mc]:0;
                 $v_delete = isset($delete[$mc]) ? $delete[$mc]:0;
+                $v_upload = isset($upload[$mc]) ? $upload[$mc]:0;
                 $data_query = array(
                     'priv_permissions'=>$id,
                     'nav_permissions'=>$mc,
                     'read_permissions' => $v_read,
                     'create_permissions' => $v_create,
                     'update_permissions' => $v_update,
-                    'delete_permissions' => $v_delete
+                    'delete_permissions' => $v_delete,
+                    'upload_permissions' => $v_upload
                     );
                 $cek = $this->M_permission->check_permission(array('priv_permissions'=>$id,'nav_permissions'=>$mc));
                 $cek_result = $cek->row();

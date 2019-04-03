@@ -27,6 +27,7 @@
             <div class="box-header with-border">
               <div>
               </div>
+              <button class="btn btn-xs btn-default btn-flat" onclick='window.location.replace("<?php echo base_url();?>admin/priv")' data-toggle="tooltip" data-placement="top" title="back"><i class="fa fa-long-arrow-left"></i></button>
               <h3 class="box-title"></h3>
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -47,6 +48,7 @@
                           <th width="15%">Create</th>
                           <th width="15%">Update</th>
                           <th width="15%">Delete</th>
+                          <th width="15%">Upload</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -74,6 +76,11 @@
                           <td>
                             <label>
                               <input type="checkbox" class="flat-red" name="delete[<?php echo $value_menu->id_nav_content; ?>]" <?php echo isset($value_menu->delete_check) ? $value_menu->delete_check:''; ?> value="1">
+                            </label>
+                          </td>
+                          <td>
+                            <label>
+                              <input type="checkbox" class="flat-red" name="upload[<?php echo $value_menu->id_nav_content; ?>]" <?php echo isset($value_menu->upload_check) ? $value_menu->upload_check:''; ?> value="1">
                             </label>
                           </td>
                         </tr>
