@@ -10,6 +10,7 @@ class Set_email extends CI_Controller {
         $this->template->if_admin();
 		$this->template->set('title',"Set Your Email");
         $this->_init();
+        $this->load->model('advance/M_set_advance','set_email');
 	}
 
     function _init()
@@ -23,8 +24,6 @@ class Set_email extends CI_Controller {
 
 	public function index()
 	{
-		
-		$this->load->model('advance/M_set_advance','set_email');
 		$data = array();
 		$row = $this->set_email->show(array('kd_advance'=>'set_email'))->row();
 		$data['cek'] = $row;
@@ -50,8 +49,54 @@ class Set_email extends CI_Controller {
 	{
 		# code...
 		$this->form_validation->set_rules('allow', 'Allow Use', 'trim|min_length[1]|max_length[1]');
-		$this->form_validation->set_rules('smtp', 'protocol', 'trim|required|min_length[1]|max_length[32]|alpha_numeric');
-		$this->form_validation->set_rules('host', 'fieldlabel', 'trim|required|min_length[5]|max_length[32]');
+		$result = array();
+		if ($this->form_validation->run() == FALSE) {
+			# code...
+			$result['status'] = 'warning';
+            $result['ket'] = validation_errors();
+		} else {
+			$allow = $this->input->post("allow");
+			$data = array();
+			if ($allow != 'Y') {
+				$data = array(
+					'setting' => '',
+					'allow_use' => 'N'
+				);
+				$query = $this->set_email->update('set_email', $data);
+				if ($query >= 1) {
+					$result['status'] = 'success';
+	            	$result['ket'] = "update Success";
+				}
+			}
+			else{
+				$this->form_validation->set_rules('protocol', 'protocol', 'trim|required|min_length[1]|max_length[32]|alpha_numeric');
+				$this->form_validation->set_rules('host', 'host', 'trim|required|min_length[5]|max_length[32]');
+				$this->form_validation->set_rules('port', 'port', 'trim|required|min_length[1]|max_length[12]|numeric');
+				$this->form_validation->set_rules('account', 'account', 'trim|required|min_length[1]|max_length[32]');
+				$this->form_validation->set_rules('password', 'password', 'trim|required|min_length[5]|max_length[12]');
+				if ($this->form_validation->run() == FALSE) {
+					$result['status'] = 'warning';
+	            	$result['ket'] = validation_errors();
+				} else {
+					$smtp = $this->input->post("protocol");
+					$host = $this->input->post("host");
+					$port = $this->input->post("port");
+					$account = $this->input->post("account");
+					$password = $this->input->post("password");
+					$set = "protocol=>".$smtp.",smtp_host=>".$host.",smtp_port=>".$port.",smtp_user=>".$account.",smtp_pass=>".$password.",mailtype=>html,charset=>utf-8";
+					$data = array(
+						'setting' => $set,
+						'allow_use' => 'Y'
+					);
+					$query = $this->set_email->update('set_email', $data);
+					if ($query >= 1) {
+						$result['status'] = 'success';
+		            	$result['ket'] = "update Success";
+					}
+				}
+			}
+		}
+		$this->output->set_content_type('application/json')->set_output(json_encode($result));
 	}
 
 }

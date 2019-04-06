@@ -3,6 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Coba_dua extends CI_Controller {
 
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->library('kirim');
+	}
+
 	public function index()
 	{
 		// //Load email library
@@ -33,6 +39,7 @@ class Coba_dua extends CI_Controller {
 
 		// //Send email
 		// $this->email->send();
+		$this->kirim->email();
 	}
 
 	public function alert($value='')

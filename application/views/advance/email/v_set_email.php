@@ -27,9 +27,6 @@
           <div id="box_user" class="box box-info">
             <div class="box-header with-border">
               <div>
-                <button class="btn btn-sm btn-default btn-flat" onclick="reload_table()" data-toggle="tooltip" data-placement="top" title="refresh"><i class="fa fa-refresh"></i></button>
-                <button class="btn btn-sm btn-info btn-flat" onclick="add()" data-toggle="tooltip" data-placement="top" title="add"><i class="fa fa-plus"></i></button>
-                <button class="btn btn-sm btn-primary btn-flat" onclick="setting_status()" data-toggle="tooltip" data-placement="top" title="setting status user"><i class="fa fa-gear"></i></button>
               </div>
               <h3 class="box-title"></h3>
               <div class="box-tools pull-right">
