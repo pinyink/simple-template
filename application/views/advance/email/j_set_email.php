@@ -43,6 +43,7 @@
       success: function(data)
       {
         notify(data.status, data.status, data.ket);
+        $('#form_set_email')[0].reset();
       },
       error: function (jqXHR, textStatus, errorThrown)
       {
@@ -52,4 +53,24 @@
     event.preventDefault();
     });
 
+  // $('#myTextarea').wysihtml5();
+  $('.textarea').wysihtml5();
+
+  $( "#form_kirim_email" ).submit(function( event ) {
+    $.ajax({
+      url : "<?php echo base_url().'advance/set_email/kirim'; ?>",
+      type: "POST",
+      data: $('#form_kirim_email').serialize(),
+      dataType: "JSON",
+      success: function(data)
+      {
+        notify(data.status, data.status, data.ket);
+      },
+      error: function (jqXHR, textStatus, errorThrown)
+      {
+        notify('error', 'error', 'update data error');
+      }
+    });
+    event.preventDefault();
+    });
   </script>

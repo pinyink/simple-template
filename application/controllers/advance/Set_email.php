@@ -17,9 +17,11 @@ class Set_email extends CI_Controller {
     {
         $this->template->css('assets/themes/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css');
         $this->template->css('assets/themes/adminlte/plugins/iCheck/all.css');
+        $this->template->css('assets/themes/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css');
         $this->template->js('assets/themes/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js');
         $this->template->js('assets/themes/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js');
         $this->template->js('assets/themes/adminlte/plugins/iCheck/icheck.min.js');
+        $this->template->js('assets/themes/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js');
     }
 
 	public function index()
@@ -73,7 +75,7 @@ class Set_email extends CI_Controller {
 				$this->form_validation->set_rules('host', 'host', 'trim|required|min_length[5]|max_length[32]');
 				$this->form_validation->set_rules('port', 'port', 'trim|required|min_length[1]|max_length[12]|numeric');
 				$this->form_validation->set_rules('account', 'account', 'trim|required|min_length[1]|max_length[32]');
-				$this->form_validation->set_rules('password', 'password', 'trim|required|min_length[5]|max_length[12]');
+				$this->form_validation->set_rules('password', 'password', 'trim|required|min_length[5]|max_length[64]');
 				if ($this->form_validation->run() == FALSE) {
 					$result['status'] = 'warning';
 	            	$result['ket'] = validation_errors();
@@ -93,7 +95,38 @@ class Set_email extends CI_Controller {
 						$result['status'] = 'success';
 		            	$result['ket'] = "update Success";
 					}
+					else{
+						$result['status'] = 'success';
+		            	$result['ket'] = "Nothing update";
+					}
 				}
+			}
+		}
+		$this->output->set_content_type('application/json')->set_output(json_encode($result));
+	}
+
+	public function kirim($value='')
+	{
+		$this->form_validation->set_rules('to', 'to', 'trim|required|min_length[5]|max_length[32]|valid_email');
+		$this->form_validation->set_rules('judul', 'Judul', 'trim|required|min_length[1]|max_length[64]|alpha_numeric_spaces');
+		$this->form_validation->set_rules('isi', 'fieldlabel', 'required');
+		$result = array();
+		if ($this->form_validation->run() == FALSE) {
+			$result['status'] = 'warning';
+        	$result['ket'] = validation_errors();
+		} else {
+			$to = $this->input->post("to");
+			$judul = $this->input->post("judul");
+			$isi = $this->input->post("isi");
+			$this->load->library('kirim');
+			$kirim = $this->kirim->email($to, $judul, $isi);
+			if ($kirim['ket'] == 1) {
+				$result['status'] = 'success';
+            	$result['ket'] = "Send Email Success";
+			}
+			else{
+				$result['status'] = 'error';
+            	$result['ket'] = "Send Email Error";
 			}
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($result));

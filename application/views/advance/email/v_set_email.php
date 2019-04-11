@@ -109,9 +109,34 @@
           </div>
           <!-- /.box -->
         </div>
+        <div class="col-md-6 col-sm-12 col-xs-12">
+          <div class="box box-info">
+            <div class="box-header">
+              <h3 class="box-title"><strong>Send Email</strong></h3>
+            </div>
+            <div class="box-body">
+              <form id="form_kirim_email" method="post" accept-charset="utf-8">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">to</label>
+                  <input type="email" class="form-control input-sm" name="to" id="exampleInputEmail1" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                  <label for="judul">Judul</label>
+                  <input type="text" class="form-control input-sm" name="judul" id="judul" placeholder="Judul">
+                </div>
+                <div class="form-group">
+                  <label for="isi">isi</label>
+                  <textarea class="textarea" name="isi" placeholder="Place some text here"
+                    style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 2px;"></textarea>
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-sm btn-success pull-right">Kirim</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
-
-      
 
     </section>
     <!-- /.content -->

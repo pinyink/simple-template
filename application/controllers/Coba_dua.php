@@ -39,7 +39,13 @@ class Coba_dua extends CI_Controller {
 
 		// //Send email
 		// $this->email->send();
-		$this->kirim->email();
+		$kirim = $this->kirim->email();
+		if ($kirim['ket'] == 1) {
+			echo $kirim['pesan'];
+		}
+		else{
+			echo $kirim['pesan'];
+		}
 	}
 
 	public function alert($value='')
