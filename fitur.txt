@@ -10,7 +10,4 @@ privilages user management
 permission privilages management
 management menu and module crud
 add status user allow to login
-
-
-database
-ALTER TABLE `tbl_user_status` ADD `allow_to_login` INT(2) NOT NULL DEFAULT '1' AFTER `color_user_status`;
+Setting Email and send email

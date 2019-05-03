@@ -180,7 +180,7 @@ class Template
 		$CI =& get_instance();
 		$where = array(
 			'b.session' => $CI->session->userdata('session'),
-			'a.flag'=> 0
+			'd.allow_to_login'=> 0
 			);
 		$this->auth($where,$kd,$mn,$just_ajax);
 	}
@@ -191,7 +191,7 @@ class Template
 		$where = array(
 			'b.session' => $CI->session->userdata('session'),
 			'a.privilages_user' => 1,
-			'a.flag'=> 0
+			'd.allow_to_login'=> 0
 			);
 		$this->auth($where);
 	}
