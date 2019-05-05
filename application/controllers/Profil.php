@@ -126,33 +126,40 @@ class Profil extends CI_Controller {
 		$this->load->library('upload', $config);
 		$data = array();
 		$cek = $this->M_profil->cek(array('id_user'=>$this->session->userdata('id')));
-		if ($cek->num_rows() == 1) {
-			$cek_row = $cek->row();
-			$remove = './assets/image/profil/'.$cek_row->photo;
-			// $data['log'] = $cek_row;
-			if (file_exists($remove)) {
-				unlink($remove);
-			}
-			// unlink($remove);
-			if ( ! $this->upload->do_upload('profil_photo')){
-				$data['error'] = array('error' => $this->upload->display_errors());
-				$data['stat'] = 0;
-			}
-			else{
-				$upload_data = $this->upload->data();
-				// $data['result'] = array('upload_data' => $this->upload->data());
-				$data['stat'] = 1;
-				$update = array(
-					'photo' => $upload_data['file_name']
-					);
-				$data['result'] = base_url().'assets/image/profil/'.$upload_data['file_name'];
-				$this->M_profil->update_profil($this->session->userdata('id'), $update);
-			}
-		}
-		else{
-			$data['error'] = array('error' => 'You Must Set Profil First !');
+		if (!$cek) {
+			$data['error'] = array('error' => 'Error Cek Row');
 			$data['stat'] = 0;
 		}
+		else{
+			if ($cek->num_rows() == 1) {
+				$cek_row = $cek->row();
+				$remove = './assets/image/profil/'.$cek_row->photo;
+				// $data['log'] = $cek_row;
+				if (file_exists($remove)) {
+					unlink($remove);
+				}
+				// unlink($remove);
+				if ( ! $this->upload->do_upload('profil_photo')){
+					$data['error'] = array('error' => $this->upload->display_errors());
+					$data['stat'] = 0;
+				}
+				else{
+					$upload_data = $this->upload->data();
+					// $data['result'] = array('upload_data' => $this->upload->data());
+					$data['stat'] = 1;
+					$update = array(
+						'photo' => $upload_data['file_name']
+						);
+					$data['result'] = base_url().'assets/image/profil/'.$upload_data['file_name'];
+					$this->M_profil->update_profil($this->session->userdata('id'), $update);
+				}
+			}
+			else{
+				$data['error'] = array('error' => 'You Must Set Profil First !');
+				$data['stat'] = 0;
+			}
+		}
+		
 		$this->output->set_content_type('application/json')->set_output(json_encode($data));
 	}
 }

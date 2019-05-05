@@ -99,7 +99,7 @@ $(document).ready(function() {
       }
     })
     .fail(function() {
-      notify('error', 'error', "error");
+      notify('error', 'Please Try Again', "error");
     });
 
   });
