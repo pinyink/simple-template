@@ -150,13 +150,24 @@ class Template
 				$menu = $CI->M_nav_menu->show()->result();
 				$data_menu = array();
 		        foreach ($menu as $k) {
-		            $tmp = new stdClass;
-		            $tmp->desc_nav = $k->desc_nav;
-		            $tmp->fa = $k->fa;
+		        	$tmp = new stdClass;
 		            if ($cek->privilages_user == 1) {
+			            $tmp->desc_nav = $k->desc_nav;
+			            $tmp->fa = $k->fa;
 		            	$tmp->nav_content = $CI->M_nav_menu->nav_content_show(array('fk_id_nav'=>$k->id_nav))->result();
 		            }else{
-		            	$tmp->nav_content = $CI->M_permission->show_permissions_menu(array('fk_id_nav'=>$k->id_nav,'read_permissions'=> 1,'priv_permissions'=>$cek->privilages_user))->result();
+		            	$q_menu = $CI->M_permission->show_permissions_menu(array('fk_id_nav'=>$k->id_nav,'read_permissions'=> 1,'priv_permissions'=>$cek->privilages_user));
+		            	if ($q_menu->num_rows() >= 1) {
+		            		$tmp->desc_nav = $k->desc_nav;
+			            	$tmp->fa = $k->fa;
+		            		$tmp->nav_content = $q_menu->result();
+		            	}
+		            	else{
+		            		break;
+		            		// $tmp->desc_nav = $k->desc_nav;
+			            	// $tmp->fa = $k->fa;
+		            		// $tmp->nav_content = array();
+		            	}
 		            }
 		            $data_menu[] = $tmp;
 		        }
