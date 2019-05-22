@@ -13,7 +13,8 @@ class Coba extends CI_Controller {
 	{
 		$this->template->authlogin('r',1);
 		$data = array(
-			'hi' => "Coba"
+			'hi' => "Coba",
+			'url' => 'coba'
 			);
 		$this->template->set('title',"Coba Read bro");
 		$this->template->adminlte('layouts/home', $data);
@@ -23,7 +24,8 @@ class Coba extends CI_Controller {
 	{
 		$this->template->authlogin('u',1);
 		$data = array(
-			'hi' => "Halaman Update"
+			'hi' => "Halaman Update",
+			'url' => 'coba'
 			);
 		$this->template->set('title',"home bro");
 		$this->template->adminlte('layouts/home', $data);
@@ -33,7 +35,8 @@ class Coba extends CI_Controller {
 	{
 		$this->template->authlogin('c',1);
 		$data = array(
-			'hi' => "Halaman Create"
+			'hi' => "Halaman Create",
+			'url' => 'coba'
 			);
 		$this->template->set('title',"home bro");
 		$this->template->adminlte('layouts/home', $data);
@@ -43,7 +46,8 @@ class Coba extends CI_Controller {
 	{
 		$this->template->authlogin('d',1);
 		$data = array(
-			'hi' => "Halaman Delete"
+			'hi' => "Halaman Delete",
+			'url' => 'coba'
 			);
 		$this->template->set('title',"home bro");
 		$this->template->adminlte('layouts/home', $data);
@@ -53,7 +57,8 @@ class Coba extends CI_Controller {
 	{
 		$this->template->authlogin('y',1);
 		$data = array(
-			'hi' => "Halaman upload"
+			'hi' => "Halaman upload",
+			'url' => 'coba'
 			);
 		$this->template->set('title',"home bro");
 		$this->template->adminlte('layouts/home', $data);

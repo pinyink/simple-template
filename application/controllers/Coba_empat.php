@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Coba_dua extends CI_Controller {
+class Coba_empat extends CI_Controller {
 
 	public function __construct()
 	{
@@ -11,21 +11,22 @@ class Coba_dua extends CI_Controller {
 
 	public function index()
 	{
-		$this->template->authlogin('r',1);
+		// authlogin('kode', 'id content', 'default ajax = NULL, use ajax = "Y"')
+		$this->template->authlogin('r',4);
 		$data = array(
-			'hi' => "Coba Dua",
-			'url' => 'coba_dua'
+			'hi' => "Coba empat",
+			'url' => 'coba_empat'
 			);
-		$this->template->set('title',"Coba Dua Read bro");
+		$this->template->set('title',"Coba empat Read bro");
 		$this->template->adminlte('layouts/home', $data);
 	}
 
 	public function update($value='')
 	{
-		$this->template->authlogin('u',2);
+		$this->template->authlogin('u',4);
 		$data = array(
-			'hi' => "Halaman Update Coba Dua",
-			'url' => 'coba_dua'
+			'hi' => "Halaman Update Coba empat",
+			'url' => 'coba_empat'
 			);
 		$this->template->set('title',"home bro");
 		$this->template->adminlte('layouts/home', $data);
@@ -33,10 +34,10 @@ class Coba_dua extends CI_Controller {
 
 	public function create($value='')
 	{
-		$this->template->authlogin('c',2);
+		$this->template->authlogin('c',4);
 		$data = array(
-			'hi' => "Halaman Create Coba Dua",
-			'url' => 'coba_dua'
+			'hi' => "Halaman Create Coba empat",
+			'url' => 'coba_empat'
 			);
 		$this->template->set('title',"home bro");
 		$this->template->adminlte('layouts/home', $data);
@@ -44,10 +45,10 @@ class Coba_dua extends CI_Controller {
 
 	public function delete($value='')
 	{
-		$this->template->authlogin('d',2);
+		$this->template->authlogin('d',4);
 		$data = array(
-			'hi' => "Halaman Delete Coba Dua",
-			'url' => 'coba_dua'
+			'hi' => "Halaman Delete Coba empat",
+			'url' => 'coba_empat'
 			);
 		$this->template->set('title',"home bro");
 		$this->template->adminlte('layouts/home', $data);
@@ -55,10 +56,10 @@ class Coba_dua extends CI_Controller {
 
 	public function upload($value='')
 	{
-		$this->template->authlogin('y',2);
+		$this->template->authlogin('y',4);
 		$data = array(
-			'hi' => "Halaman upload Coba Dua",
-			'url' => 'coba_dua'
+			'hi' => "Halaman upload Coba empat",
+			'url' => 'coba_empat'
 			);
 		$this->template->set('title',"home bro");
 		$this->template->adminlte('layouts/home', $data);
@@ -66,5 +67,5 @@ class Coba_dua extends CI_Controller {
 
 }
 
-/* End of file Coba_dua.php */
-/* Location: ./application/controllers/Coba_dua.php */
+/* End of file Coba_empat.php */
+/* Location: ./application/controllers/Coba_empat.php */

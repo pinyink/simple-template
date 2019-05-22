@@ -16,7 +16,7 @@ class Home extends CI_Controller {
 			'hi' => "katakan HI"
 			);
 		$this->template->set('title',"home bro");
-		$this->template->adminlte('layouts/home', $data);
+		$this->template->adminlte('welcome_message', $data);
 	}
 
 }

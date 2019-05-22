@@ -137,13 +137,14 @@ class Template
 					$create = $cek_permissions_row->create_permissions;
 					$update = $cek_permissions_row->update_permissions;
 					$delete = $cek_permissions_row->delete_permissions;
-					$delete = $cek_permissions_row->upload_permissions;
+					$upload = $cek_permissions_row->upload_permissions;
 				}
 			}
 			if ($cek->privilages_user == 1) {
 				$create = 1;
 				$update = 1;
 				$delete = 1;
+				$upload = 1;
 			}
 			if ($ajax == NULL and $ajax != 'Y') {
 				# code...
@@ -182,6 +183,7 @@ class Template
 			$this->sidebar_data['update'] = $update;
 			$this->sidebar_data['create'] = $create;
 			$this->sidebar_data['delete'] = $delete;
+			$this->sidebar_data['upload'] = $upload;
 		}
 		return;
 	}

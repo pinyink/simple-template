@@ -21,13 +21,16 @@
         <div class="box-header with-border">
           <div>
             <?php if (isset($create) and $create == 1): ?>
-            <a href="<?php echo base_url().'coba/create'; ?>" class="btn btn-info btn-sm">Add Data</a>
+            <a href="<?php echo base_url().$url.'/create'; ?>" class="btn btn-info btn-sm">Add Data</a>
             <?php endif ?>
             <?php if (isset($update) and $update == 1): ?>
-            <a href="<?php echo base_url().'coba/update'; ?>" class="btn btn-success btn-sm">Update Data</a>
+            <a href="<?php echo base_url().$url.'/update'; ?>" class="btn btn-success btn-sm">Update Data</a>
             <?php endif ?>
             <?php if (isset($delete) and $delete == 1): ?>
-            <a href="<?php echo base_url().'coba/create'; ?>" class="btn btn-warning btn-sm">Delete Data</a>
+            <a href="<?php echo base_url().$url.'/create'; ?>" class="btn btn-warning btn-sm">Delete Data</a>
+            <?php endif ?>
+            <?php if (isset($upload) and $upload == 1): ?>
+            <a href="<?php echo base_url().$url.'/upload'; ?>" class="btn btn-danger btn-sm">Upload Data</a>
             <?php endif ?>
           </div>
           <h3 class="box-title"></h3>
