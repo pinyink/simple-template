@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class login extends CI_Controller {
+class login extends CI_Controller
+{
 	public function __construct()
 	{
 		parent::__construct();
@@ -13,11 +14,11 @@ class login extends CI_Controller {
 	{
 		$where = array(
 			'b.session' => $this->session->userdata('session'),
-			'a.flag'=> 0
-			);
+			'a.flag' => 0
+		);
 		$query = $this->M_user->lihat($where);
 		$cek = $query->row();
-		if($query->num_rows() == 1){
+		if ($query->num_rows() == 1) {
 			redirect(base_url("home"));
 		}
 		$this->load->view('v_login');
@@ -26,7 +27,7 @@ class login extends CI_Controller {
 	public function doLogin()
 	{
 		$this->form_validation->set_rules('txtUsername', 'Username', 'required|min_length[3]|max_length[16]');
-		$this->form_validation->set_rules('txtPassword', 'Password', 'required',array('required' => 'You must provide a %s.'));
+		$this->form_validation->set_rules('txtPassword', 'Password', 'required', array('required' => 'You must provide a %s.'));
 		$username = $this->input->post('txtUsername');
 		$password = $this->input->post('txtPassword');
 		$password = md5($password);
@@ -35,8 +36,11 @@ class login extends CI_Controller {
 		$where = array(
 			'username' => $username,
 			'password' => $password
-			);
-		$log = array();
+		);
+		$log = array(
+			'name_key' => $this->security->get_csrf_token_name(),
+			'key' => $this->security->get_csrf_hash()
+		);
 		if ($this->form_validation->run() == FALSE) {
 			$log['status'] = 'x';
 			$log['keterangan'] = validation_errors();
@@ -46,18 +50,18 @@ class login extends CI_Controller {
 			$cek = $query->num_rows();
 			$row = $query->row();
 			$sesi = $this->uuid->v4();
-			if($cek == 1){
+			if ($cek == 1) {
 				if ($row->allow_to_login == 0) {
 					$data_session = array(
 						'id' => $row->id_user,
 						'session' => $sesi,
 						'username' => $username
-						);
-					$data= array(
+					);
+					$data = array(
 						'id_user' => $row->id_user,
 						'session' => $sesi
 						// 'date_time' => date('Y-m-d H:i:s')
-						);
+					);
 					$this->M_online->online($data);
 					$log = array(
 						'id_user' => $row->id_user,
@@ -65,18 +69,17 @@ class login extends CI_Controller {
 						'user_agents' => $user_agent,
 						'ip_address' => $ip,
 						'log' => 'login'
-						);
+					);
 					$this->M_online->log($log);
 					//echo date('Y-m-d H:i:s');
 					$this->session->set_userdata($data_session);
 					//echo " login berhasil";
-					$log['status']= 'y';
-				}
-				else{
+					$log['status'] = 'y';
+				} else {
 					$log['status'] = 'x';
-					$log['keterangan'] = 'your account is '.$row->desc_user_status.'.<br/> Administrator not allowed '.$row->desc_user_status.' user to Login';
+					$log['keterangan'] = 'your account is ' . $row->desc_user_status . '.<br/> Administrator not allowed ' . $row->desc_user_status . ' user to Login';
 				}
-			}else{
+			} else {
 				$log['status'] = 'x';
 				$log['keterangan'] = 'username or password is wrong';
 			}
@@ -96,7 +99,7 @@ class login extends CI_Controller {
 			'user_agents' => $user_agent,
 			'ip_address' => $ip,
 			'log' => 'logout'
-			);
+		);
 		if (!empty($id) or isset($id) or $id != NULL) {
 			$this->M_online->log($log);
 		}
@@ -105,17 +108,17 @@ class login extends CI_Controller {
 	}
 
 	function coba()
-    {
-        $u = '\'u\'';
-        echo $u;
-        $where = array(
-            'b.session' => $this->session->userdata('session'),
-            'a.privilages_user' => 1,
-            'a.flag'=> 0
-            );
-        $query = $this->M_user->lihat($where)->result();
-        print_r($query);
-    }
+	{
+		$u = '\'u\'';
+		echo $u;
+		$where = array(
+			'b.session' => $this->session->userdata('session'),
+			'a.privilages_user' => 1,
+			'a.flag' => 0
+		);
+		$query = $this->M_user->lihat($where)->result();
+		print_r($query);
+	}
 }
 
 /* End of file Contoh.php */
