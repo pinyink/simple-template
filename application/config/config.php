@@ -466,7 +466,17 @@ $config['csrf_exclude_uris'] = array(
 	'admin/menu/add_nav',
 	'admin/menu/update_nav',
 	'admin/menu/add_content',
-	'admin/menu/update_content'
+	'admin/menu/update_content',
+	'profil/setting',
+	'profil/change_photo',
+	'profil/change_password',
+	'admin/user/ajax_list',
+	'admin/user/status_ajax_list',
+	'admin/user/add_user',
+	'admin/user/update',
+	'admin/user/add_status',
+	'admin/user/update_status',
+	'admin/user/reset'
 );
 
 /*

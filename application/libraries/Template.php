@@ -92,7 +92,12 @@ class Template
 		$query = $CI->M_user->lihat($where);
 		$cek = $query->row();
 		if($query->num_rows() != 1){
-			redirect(base_url("login"));
+			if ($ajax == 'Y') {
+				return 0;
+			}
+			else{
+				redirect(base_url("login"));
+			}
 		}
 		else{
 			$data= array(
