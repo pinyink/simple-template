@@ -8,6 +8,9 @@ class login extends CI_Controller
 		parent::__construct();
 		$this->load->model('M_user');
 		$this->load->model('M_online');
+		$this->load->helper('cookie');
+		$this->input->set_cookie('key', $this->security->get_csrf_token_name(),600);
+		$this->input->set_cookie('value_key', $this->security->get_csrf_hash(), 600);
 	}
 
 	public function index()
@@ -36,10 +39,6 @@ class login extends CI_Controller
 		$where = array(
 			'username' => $username,
 			'password' => $password
-		);
-		$log = array(
-			'name_key' => $this->security->get_csrf_token_name(),
-			'key' => $this->security->get_csrf_hash()
 		);
 		if ($this->form_validation->run() == FALSE) {
 			$log['status'] = 'x';
@@ -109,15 +108,21 @@ class login extends CI_Controller
 
 	function coba()
 	{
-		$u = '\'u\'';
-		echo $u;
-		$where = array(
-			'b.session' => $this->session->userdata('session'),
-			'a.privilages_user' => 1,
-			'a.flag' => 0
-		);
-		$query = $this->M_user->lihat($where)->result();
-		print_r($query);
+		// $u = '\'u\'';
+		// echo $u;
+		// $where = array(
+		// 	'b.session' => $this->session->userdata('session'),
+		// 	'a.privilages_user' => 1,
+		// 	'a.flag' => 0
+		// );
+		// $query = $this->M_user->lihat($where)->result();
+		// print_r($query);
+		echo get_cookie('value_key');
+	}
+
+	public function coba_dua($value='')
+	{
+		
 	}
 }
 

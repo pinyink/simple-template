@@ -37,10 +37,7 @@
 		<!-- /.login-logo -->
 		<div class="login-box-body">
 			<p class="login-box-msg">Sign in to start your session</p>
-			<?=
-				form_open('login/doLogin', 'id="loginForm"');
-			?>
-			<!-- <form action="#" method="post" id="loginForm"> -->
+			<form action="#" method="post" id="loginForm">
 			<div class="form-group has-feedback">
 				<input type="Username" name="txtUsername" class="form-control" placeholder="Username">
 				<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -63,10 +60,7 @@
 				</div>
 				<!-- /.col -->
 			</div>
-			<!-- </form> -->
-			<?=
-				form_close();
-			?>
+			</form>
 
 			<!-- <div class="social-auth-links text-center">
       <p>- OR -</p>
@@ -113,13 +107,28 @@
 			});
 		});
 
+		function getCookie(cname) {
+		  var name = cname + "=";
+		  var ca = document.cookie.split(';');
+		  for(var i = 0; i < ca.length; i++) {
+		    var c = ca[i];
+		    while (c.charAt(0) == ' ') {
+		      c = c.substring(1);
+		    }
+		    if (c.indexOf(name) == 0) {
+		      return c.substring(name.length, c.length);
+		    }
+		  }
+		  return "";
+		}
+
 		$("#loginForm").submit(function(event) {
 			url = "<?php echo base_url('login/doLogin') ?>";
 			// ajax adding data to database
 			$.ajax({
 				url: url,
 				type: "POST",
-				data: $('#loginForm').serialize(),
+				data: $('#loginForm').serialize()+'&'+getCookie('key')+'='+getCookie('value_key'),
 				dataType: "JSON",
 				success: function(data) {
 					if (data.status == 'x') {
@@ -136,6 +145,7 @@
 					alert('Error adding / update data');
 				}
 			});
+			console.log($('#loginForm').serialize());
 			event.preventDefault();
 		});
 	</script>
