@@ -17,7 +17,10 @@
 			// Load data for the table's content from an Ajax source
 			"ajax": {
 				"url": "<?php echo base_url('admin/priv/ajax_list') ?>",
-				"type": "POST"
+				"type": "POST",
+				data : function ( d ) {
+					d.csrf_test_name = getCookie('value_key');
+				}
 			},
 
 			//Set column definition initialisation properties.
@@ -28,14 +31,6 @@
 
 		});
 
-	});
-
-	$(function($) {
-		$.ajaxSetup({
-			data: {
-				'<?= $this->security->get_csrf_token_name(); ?>': '<?= $this->security->get_csrf_hash(); ?>'
-			}
-		});
 	});
 
 	function reload_table() {
@@ -97,7 +92,7 @@
 			$.ajax({
 				url: url,
 				type: "POST",
-				data: $('#form_add').serialize(),
+				data: $('#form_add').serialize()+'&'+getCookie('key')+'='+getCookie('value_key'),
 				dataType: "JSON",
 				success: function(data) {
 					// if add success

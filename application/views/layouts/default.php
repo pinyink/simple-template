@@ -246,6 +246,7 @@
 <!-- notify  js -->
 <script src="<?php echo base_url().'assets/themes/adminlte'; ?>/bower_components/notifyjs/notify.min.js"></script>
 <script src="<?php echo base_url().'assets/themes/adminlte'; ?>/bower_components/notifyjs/dist/styles/metro/notify-metro.js"></script>
+<script src="<?= base_url()?>assets/js/setting_more.js"></script>
 	<?php foreach($js as $file){
 	  	echo "\n"; 
 	    ?><script src="<?php echo base_url().$file; ?>"></script><?php
@@ -287,6 +288,7 @@
   $('ul.treeview-menu a').filter(function() {
      return this.href == url_active;
   }).parentsUntil( $( "ul.level-1" ) ).addClass('active');
+
 
 </script>
 <?php echo $js_view = isset($js_view) ?  $js_view : ''; ?>

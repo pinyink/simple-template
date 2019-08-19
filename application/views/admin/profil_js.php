@@ -24,7 +24,7 @@
 		$.ajax({
 			url: "<?php echo base_url() . 'profil/setting'; ?>",
 			type: "POST",
-			data: $('#form_settings').serialize(),
+			data: form_serialize_csrf($('#form_settings').serialize()),
 			dataType: "JSON",
 			success: function(data) {
 				$('.profile-username').text(data.fullname);
@@ -41,11 +41,12 @@
 
 	$('#form_change_photo').submit(function(event) {
 		/* Act on the event */
-		event.preventDefault();
+		event.preventDefault();	
+		
 		$.ajax({
 				url: "<?php echo base_url() . 'profil/change_photo'; ?>",
 				type: "POST",
-				data: new FormData(this),
+				data: append_csrf (new FormData(this)),
 				processData: false,
 				contentType: false,
 				cache: false,
@@ -107,7 +108,7 @@
 					url: "<?php echo base_url() . 'profil/change_password'; ?>",
 					type: 'POST',
 					dataType: 'JSON',
-					data: $('#form_change_password').serialize(),
+					data: form_serialize_csrf( $('#form_change_password').serialize() ),
 				})
 				.done(function(data) {
 					notify(data.status, 'Notify', data.ket);

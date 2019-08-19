@@ -17,10 +17,7 @@ class Priv extends CI_Controller
 
 	public function index()
 	{
-		$data = array(
-			'name_key' => $this->security->get_csrf_token_name(),
-			'key' => $this->security->get_csrf_hash()
-		);
+		$data = array();
 		$this->template->adminlte('admin/v_privilages', $data, 'admin/v_privilages_js');
 	}
 
@@ -101,14 +98,11 @@ class Priv extends CI_Controller
 				$result['ket'] = "Data Not Set";
 			}
 		}
-		$result['name_key'] = $this->security->get_csrf_token_name();
-		$result['key'] = $this->security->get_csrf_hash();
 		$this->output->set_content_type('application/json')->set_output(json_encode($result));
 	}
 
 	public function update()
 	{
-
 		$this->form_validation->set_rules('inputIdPriv', 'ID Desc Privilages', 'required|numeric');
 		$id = $this->input->post('inputIdPriv');
 		$this->form_validation->set_rules('inputDescPriv', 'Desc Privilages', 'required|max_length[32]');

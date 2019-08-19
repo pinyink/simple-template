@@ -15,7 +15,7 @@ class Template
 	
 	public function __construct()
 	{
-		$this->CI =& get_instance(); 
+		$this->CI =& get_instance();
 	}
 
 	public function set($content_area, $value)
@@ -81,6 +81,9 @@ class Template
 	private function auth($where,$kd=NULL,$mn=NULL, $ajax = NULL)
 	{
 		$CI =& get_instance();
+		$CI->load->helper('cookie');
+		$CI->input->set_cookie('key', $CI->security->get_csrf_token_name(),600);
+		$CI->input->set_cookie('value_key', $CI->security->get_csrf_hash(), 600);
 		$CI->load->model('M_user');
 		$CI->load->model('M_online');
 		$CI->load->model('M_nav_menu');

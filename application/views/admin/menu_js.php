@@ -26,7 +26,10 @@
 			// Load data for the table's content from an Ajax source
 			"ajax": {
 				"url": "<?php echo base_url('admin/menu/ajax_nav_list') ?>",
-				"type": "POST"
+				"type": "POST",
+				data : function ( d ) {
+					d.csrf_test_name = getCookie('value_key');
+				}
 			},
 
 			//Set column definition initialisation properties.
@@ -46,7 +49,10 @@
 			// Load data for the table's content from an Ajax source
 			"ajax": {
 				"url": "<?php echo base_url('admin/menu/ajax_nav_list_content') ?>",
-				"type": "POST"
+				"type": "POST",
+				data : function ( d ) {
+					d.csrf_test_name = getCookie('value_key');
+				}
 			},
 
 			//Set column definition initialisation properties.
@@ -147,7 +153,7 @@
 		document.getElementById('row_fa').innerHTML = form_content;
 		$.ajax({
 				url: "<?php echo base_url('admin/menu/ajax_menu/') ?>",
-				type: 'POST',
+				type: 'GET',
 				dataType: 'JSON',
 			})
 			.done(function(data) {
@@ -240,7 +246,7 @@
 		$.ajax({
 			url: url,
 			type: "POST",
-			data: $('#form_nav_add').serialize(),
+			data: form_serialize_csrf ( $('#form_nav_add').serialize() ),
 			dataType: "JSON",
 			success: function(data) {
 				// if add success

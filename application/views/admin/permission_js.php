@@ -9,7 +9,7 @@
     $.ajax({
       url : "<?php echo base_url().'admin/priv/permission_aksi'; ?>",
       type: "POST",
-      data: $('#form_permission').serialize(),
+      data: form_serialize_csrf($('#form_permission').serialize()),
       dataType: "JSON",
       success: function(data)
       {

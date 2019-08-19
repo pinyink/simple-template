@@ -456,27 +456,27 @@ $config['csrf_cookie_name'] = 'csrf_cookie_name';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = TRUE;
 $config['csrf_exclude_uris'] = array(
-	'admin/priv/ajax_list',
-	'admin/priv/add_priv',
-	'admin/priv/update',
-	'admin/priv/permission_aksi',
-	'admin/menu/ajax_nav_list',
-	'admin/menu/ajax_nav_list_content',
-	'admin/menu/ajax_menu/',
-	'admin/menu/add_nav',
-	'admin/menu/update_nav',
-	'admin/menu/add_content',
-	'admin/menu/update_content',
-	'profil/setting',
-	'profil/change_photo',
-	'profil/change_password',
-	'admin/user/ajax_list',
-	'admin/user/status_ajax_list',
-	'admin/user/add_user',
-	'admin/user/update',
-	'admin/user/add_status',
-	'admin/user/update_status',
-	'admin/user/reset'
+	// 'admin/priv/ajax_list',
+	// 'admin/priv/add_priv',
+	// 'admin/priv/update',
+	// 'admin/priv/permission_aksi',
+	// 'admin/menu/ajax_nav_list',
+	// 'admin/menu/ajax_nav_list_content',
+	// 'admin/menu/ajax_menu/',
+	// 'admin/menu/add_nav',
+	// 'admin/menu/update_nav',
+	// 'admin/menu/add_content',
+	// 'admin/menu/update_content',
+	// 'profil/setting',
+	// 'profil/change_photo',
+	// 'profil/change_password',
+	// 'admin/user/ajax_list',
+	// 'admin/user/status_ajax_list',
+	// 'admin/user/add_user',
+	// 'admin/user/update',
+	// 'admin/user/add_status',
+	// 'admin/user/update_status',
+	// 'admin/user/reset'
 );
 
 /*
