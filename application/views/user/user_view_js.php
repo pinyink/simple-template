@@ -21,7 +21,10 @@
           // Load data for the table's content from an Ajax source
           "ajax": {
               "url": "<?php echo base_url('admin/user/ajax_list')?>",
-              "type": "POST"
+              "type": "POST",
+              data : function ( d ) {
+                d.csrf_test_name = getCookie('value_key');
+              }
           },
    
           //Set column definition initialisation properties.
@@ -43,7 +46,10 @@
         // Load data for the table's content from an Ajax source
         "ajax": {
             "url": "<?php echo base_url('admin/user/status_ajax_list')?>",
-            "type": "POST"
+            "type": "POST",
+            data : function ( d ) {
+                d.csrf_test_name = getCookie('value_key');
+              }
         },
  
         //Set column definition initialisation properties.
@@ -153,22 +159,22 @@
     if(save_method == 'add')
     {
       url = "<?php echo base_url('admin/user/add_user')?>";
-      form_data = $('#form_add').serialize();
+      form_data = form_serialize_csrf ( $('#form_add').serialize());
     }
     else if(save_method == 'edit')
     {
       url = "<?php echo base_url('admin/user/update')?>";
-      form_data = $('#form_add').serialize();
+      form_data = form_serialize_csrf ( $('#form_add').serialize());
     }
     else if(save_method == 'add_status')
     {
       url = "<?php echo base_url('admin/user/add_status')?>";
-      form_data = $('#form_status').serialize();
+      form_data = form_serialize_csrf ( $('#form_status').serialize() );
     }
     else if(save_method == 'edit_status')
     {
       url = "<?php echo base_url('admin/user/update_status')?>";
-      form_data = $('#form_status').serialize();
+      form_data = form_serialize_csrf ( $('#form_status').serialize() );
     }
      // ajax adding data to database
     $.ajax({
