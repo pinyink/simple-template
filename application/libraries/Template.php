@@ -154,7 +154,7 @@ class Template
 				$delete = 1;
 				$upload = 1;
 			}
-			if ($ajax == NULL and $ajax != 'Y') {
+			if ($ajax == NULL or $ajax != 'Y') {
 				# code...
 				$menu = $CI->M_nav_menu->show()->result();
 				$data_menu = array();
@@ -192,6 +192,7 @@ class Template
 			$this->sidebar_data['create'] = $create;
 			$this->sidebar_data['delete'] = $delete;
 			$this->sidebar_data['upload'] = $upload;
+			$this->sidebar_data['company'] = $cek->desc_company;
 		}
 		return;
 	}

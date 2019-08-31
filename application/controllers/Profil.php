@@ -8,17 +8,18 @@ class Profil extends CI_Controller {
 		parent::__construct();
 		$this->load->model('M_profil');
 		$this->load->model('M_user');
-		$this->template->authlogin();
 		$this->template->set("title","welcome to adminlte");
 	}
 
 	public function index()
 	{
+		$this->template->authlogin(null, null, 'N');
 		$this->template->adminlte('admin/profil',array(), 'admin/profil_js');
 	}
 
 	public function setting()
 	{
+		$this->template->authlogin(null, null, 'Y');
 		$this->form_validation->set_rules('inputFullName', 'Fullname', 'required|alpha_numeric_spaces');
 		$this->form_validation->set_rules('inputEmail', 'Email', 'valid_email');
 		$this->form_validation->set_rules('inputAddress', 'Address', 'alpha_numeric_spaces');
@@ -69,6 +70,7 @@ class Profil extends CI_Controller {
 
 	public function view()
 	{
+		$this->template->authlogin(null, null, 'Y');
 		$data = array(
 			'result' => $this->_view()
 			);
@@ -83,6 +85,7 @@ class Profil extends CI_Controller {
 
 	public function change_password()
 	{
+		$this->template->authlogin(null, null, 'Y');
 		$old = $this->input->post('inputOldPassword');
 		$this->form_validation->set_rules('inputOldPassword', 'Old Password', 'required');
 		$this->form_validation->set_rules('inputNewPassword', 'New Password', 'required');
@@ -117,6 +120,7 @@ class Profil extends CI_Controller {
 
 	public function change_photo()
 	{
+		$this->template->authlogin(null, null, 'Y');
 		$config['upload_path'] = './assets/image/profil';
 		$config['allowed_types'] = 'gif|jpg|png';
 		$config['max_size']  = '2000';

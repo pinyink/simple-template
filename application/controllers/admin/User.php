@@ -10,7 +10,6 @@ class User extends CI_Controller {
 		$this->load->library('template');
         $this->template->if_admin();
 		$this->template->set('title',"welcome to adminlte");
-        $this->_init();
 	}
 
     function _init()
@@ -24,6 +23,7 @@ class User extends CI_Controller {
 
 	public function index()
 	{
+        $this->_init();
         $data = array();
 		$this->template->adminlte('user/user_view',$data,'user/user_view_js');
 	}
@@ -42,6 +42,9 @@ class User extends CI_Controller {
         $password = md5($password);
         $priv = $this->input->post('priv');
         $this->form_validation->set_rules('priv', 'Privilages', 'required|numeric');
+
+        $company = $this->input->post('company');
+        $this->form_validation->set_rules('company', 'Company', 'required|numeric');
         if ($this->form_validation->run() == FALSE) {
             echo json_encode(array('status'=> 0,'ket'=> validation_errors()));
         }else{
@@ -53,7 +56,8 @@ class User extends CI_Controller {
                     'username' => $username,
                     'password' => $password,
                     'privilages_user' => $priv,
-                    'flag' => $status
+                    'flag' => $status,
+                    'company' => $company
                     // 'create_at' => date('Y-m-d H:i:s')
                     );
                 $query = $this->M_user->insert_user($data);
@@ -83,6 +87,7 @@ class User extends CI_Controller {
             }
             $row[] = $u->username.' '.$online;
             $row[] = $u->desc_priv;
+            $row[] = $u->desc_company;
             $row[] = $u->create_at;
             $row[] = '<span class="label" style="background-color:'.$u->color_user_status.'">'.$u->desc_user_status.'</span>';
             $row[] =    "<button class='btn btn-sm btn-primary btn-flat' data-toggle='tooltip' data-placement='top' title='edit data' onclick=\"edit('".$u->id_user."')\"><i class='fa fa-edit'></i></button> ".
@@ -101,16 +106,6 @@ class User extends CI_Controller {
         echo json_encode($output);
     }
 
-    public function ajax_privilages()
-    {
-        $data = array(
-            'data' => $this->_privilages(),
-            'status' => $this->_user_status()
-            );
-        $this->output->set_content_type('application/json')->set_output(json_encode($data));
-        // echo json_encode($data);
-    }
-
     private function _privilages()
     {
         $this->load->model('M_privilages');
@@ -125,13 +120,32 @@ class User extends CI_Controller {
         return $result;
     }
 
+    private function _company()
+    {
+        $this->load->model('M_company');
+        $result = $this->M_company->show()->result();
+        return $result;
+    }
+
+    public function ajax_privilages()
+    {
+        $data = array(
+            'data' => $this->_privilages(),
+            'status' => $this->_user_status(),
+            'company' => $this->_company()
+            );
+        $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        // echo json_encode($data);
+    }
+
     public function ajax_edit($id)
     {
         $query = $this->M_user->lihat2(array('a.id_user'=>$id))->row();
         $data = array(
             'result' => $query,
             'data' => $this->_privilages(),
-            'status' => $this->_user_status()
+            'status' => $this->_user_status(),
+            'company' => $this->_company()
             );
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
         // echo json_encode($data);
@@ -145,10 +159,16 @@ class User extends CI_Controller {
         $username2 = $this->input->post('username2');
         $this->form_validation->set_rules('priv', 'Privilages', 'required|numeric');
         $priv = $this->input->post('priv');
-        $this->form_validation->set_rules('id_user', 'ID User', 'required|max_length[36]');
-        $this->form_validation->set_rules('status', 'status user', 'trim|required|min_length[1]|max_length[2]|numeric');
-        $status = $this->input->post("status");
+
         $id_user = $this->input->post('id_user');
+        $this->form_validation->set_rules('id_user', 'ID User', 'required|max_length[36]');
+
+        $status = $this->input->post("status");
+        $this->form_validation->set_rules('status', 'status user', 'trim|required|min_length[1]|max_length[2]|numeric');
+
+        $company = $this->input->post('company');
+        $this->form_validation->set_rules('company', 'Company', 'required|numeric');
+
         $data = array();
         if ($this->form_validation->run() == FALSE) {
             echo json_encode(array('status'=> 0,'ket'=> validation_errors()));
@@ -159,7 +179,8 @@ class User extends CI_Controller {
                 $data = array(
                     'username' => $username,
                     'privilages_user' => $priv,
-                    'flag' => $status
+                    'flag' => $status,
+                    'company' => $company
                     );
                 $query = $this->M_user->update_user($id_user, $data);
                 if (!$query) {

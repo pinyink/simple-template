@@ -44,6 +44,7 @@
 
               <p class="text-muted text-center" id="email_profil">
               </p>
+              <p class="text-muted text-center"><?php echo $company; ?></p>
             </div>
             <!-- /.box-body -->
           </div>

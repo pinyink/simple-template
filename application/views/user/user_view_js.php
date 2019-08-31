@@ -80,16 +80,25 @@
         save_method = 'add';
         $('[name="password"]').attr("disabled",false);
         $('#form_add')[0].reset();
+
         $('select[name="priv"]').empty();
         $('select[name="priv"]').append('<option value="">-</option>');
         $.each(data.data, function(key, value) {
           $('select[name="priv"]').append('<option value="'+ value.id_priv +'">'+ value.desc_priv +'</option>');
         });
+
         $('select[name="status"]').empty();
         $('select[name="status"]').append('<option value="">-</option>');
         $.each(data.status, function(key, value) {
           $('select[name="status"]').append('<option value="'+ value.id_user_status +'">'+ value.desc_user_status +'</option>');          
         });
+
+        $('select[name="company"]').empty();
+        $('select[name="company"]').append('<option value="">-</option>');
+        $.each(data.company, function(key, value) {
+          $('select[name="company"]').append('<option value="'+ value.id_company +'">'+ value.desc_company +'</option>');          
+        });
+
         $('#modal_add .modal-title').text('Add User');
         $('#modal_add').modal('show'); // show bootstrap modal
       },
@@ -122,6 +131,7 @@
         $('[name="username"]').val(data.result.username);
         $('[name="username2"]').val(data.result.username);
         $('[name="password"]').attr("disabled",'disabled');
+
         $('select[name="priv"]').empty();
         $('select[name="priv"]').append('<option value="">-</option>');
         $.each(data.data, function(key, value) {
@@ -132,6 +142,7 @@
             $('select[name="priv"]').append('<option value="'+ value.id_priv +'">'+ value.desc_priv +'</option>');
           }          
         });
+
         $('select[name="status"]').empty();
         $('select[name="status"]').append('<option value="">-</option>');
         $.each(data.status, function(key, value) {
@@ -142,6 +153,18 @@
             $('select[name="status"]').append('<option value="'+ value.id_user_status +'">'+ value.desc_user_status +'</option>');
           }          
         });
+
+        $('select[name="company"]').empty();
+        $('select[name="company"]').append('<option value="">-</option>');
+        $.each(data.company, function(key, value) {
+          if (value.id_company == data.result.company) {
+            $('select[name="company"]').append('<option value="'+ value.id_company +'" selected="selected">'+ value.desc_company +'</option>');
+          }
+          else{
+            $('select[name="company"]').append('<option value="'+ value.id_company +'">'+ value.desc_company +'</option>');
+          }          
+        });
+
         $('#modal_add .modal-title').text('Edit User');
         $('#modal_add').modal('show'); // show bootstrap modal
       },
@@ -208,7 +231,7 @@
     $.ajax({
       url : "<?php echo base_url('admin/user/reset')?>",
       type: "POST",
-      data: $('#form_reset').serialize(),
+      data: form_serialize_csrf ($('#form_reset').serialize()),
       dataType: "JSON",
       success: function(data)
       {
