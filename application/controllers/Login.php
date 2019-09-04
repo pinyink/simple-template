@@ -54,7 +54,8 @@ class login extends CI_Controller
 					$data_session = array(
 						'id' => $row->id_user,
 						'session' => $sesi,
-						'username' => $username
+						'username' => $username,
+						'company' => $row->company
 					);
 					$data = array(
 						'id_user' => $row->id_user,

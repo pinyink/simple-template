@@ -172,10 +172,10 @@ class Template
 		            		$tmp->nav_content = $q_menu->result();
 		            	}
 		            	else{
-		            		break;
-		            		// $tmp->desc_nav = $k->desc_nav;
-			            	// $tmp->fa = $k->fa;
-		            		// $tmp->nav_content = array();
+		            		// break;
+		            		$tmp->desc_nav = $k->desc_nav;
+			            	$tmp->fa = $k->fa;
+		            		$tmp->nav_content = '';
 		            	}
 		            }
 		            $data_menu[] = $tmp;

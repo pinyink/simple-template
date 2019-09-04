@@ -27,6 +27,7 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <?php foreach ($menu as $m): ?>
+          <?php if (is_array($m->nav_content)): ?>
           <li class="treeview">
             <a href="#">
               <i class="fa <?php echo $m->fa; ?>"></i>
@@ -41,6 +42,7 @@
             <?php endforeach ?>
             </ul>
           </li>
+          <?php endif ?>
         <?php endforeach ?>
         <?php if ($priv == 1): ?>
           <li class="treeview">

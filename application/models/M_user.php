@@ -26,10 +26,11 @@ class M_user extends CI_Model {
 
 	public function lihat2($Value)
 	{
-		$this->db->select('a.id_user,a.username,a.privilages_user, c.user_fullname,c.photo, a.flag, d.desc_user_status, d.color_user_status, d.allow_to_login');
+		$this->db->select('a.id_user,a.username,a.privilages_user, c.user_fullname,c.photo, a.flag, d.desc_user_status, d.color_user_status, d.allow_to_login, a.company, e.desc_company');
 		// $this->db->join('tbl_online b', 'a.id_user = b.id_user');
 		$this->db->join('tbl_user_desc c', 'a.id_user = c.id_user','left');
 		$this->db->join('tbl_user_status d', 'a.flag = d.id_user_status', 'left');
+		$this->db->join('tbl_company e', 'e.id_company = a.company', 'left');
 		$this->db->where($Value);
 		return $this->db->get('tbl_user a');
 	}
