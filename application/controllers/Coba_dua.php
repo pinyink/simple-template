@@ -11,7 +11,7 @@ class Coba_dua extends CI_Controller {
 
 	public function index()
 	{
-		$this->template->authlogin('r',1);
+		$this->template->authlogin('r',2);
 		$data = array(
 			'hi' => "Coba Dua",
 			'url' => 'coba_dua'

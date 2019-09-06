@@ -109,37 +109,70 @@ class Template
 				'date_time' => date('Y-m-d H:i:s')
 				);
 			$CI->M_online->online($data);
+			$data_session = array(
+				'id' => $cek->id_user,
+				'session' => $CI->session->userdata('session'),
+				'username' => $cek->username,
+				'company' => $cek->company,
+				'level' => $cek->privilages_user
+			);
+			$CI->session->set_userdata($data_session);
 			$cek_permission = '';
 			if ($cek->privilages_user != 1 and $kd != NULL) {
 				$cek_permissions = $CI->M_permission->check_permission(array('priv_permissions'=>$cek->privilages_user,'nav_permissions'=>$mn));
 				if ($cek_permissions->num_rows() != 1) {
-					redirect(base_url('error/not_found'));
+					redirect(base_url('hmmm/not_found'));
 				}
 				else{
 					$cek_permissions_row = $cek_permissions->row();
 					if ($kd == 'r' and $mn != NULL) {
 						if ($cek_permissions_row->read_permissions != 1) {
-							redirect(base_url('error/not_found'));
+							if ($ajax == 'Y') {
+								return 0;
+							}
+							else{
+								redirect(base_url('hmmm/not_found'));
+							}
 						}
 					}
 					if ($kd == 'u' and $mn != NULL){
 						if ($cek_permissions_row->update_permissions != 1) {
-							redirect(base_url('error/not_found'));
+							if ($ajax == 'Y') {
+								return 0;
+							}
+							else{
+								redirect(base_url('hmmm/not_found'));
+							}
 						}	
 					}
 					if ($kd == 'c' and $mn != NULL){
 						if ($cek_permissions_row->create_permissions != 1) {
-							redirect(base_url('error/not_found'));
+							if ($ajax == 'Y') {
+								return 0;
+							}
+							else{
+								redirect(base_url('hmmm/not_found'));
+							}
 						}	
 					}
 					if ($kd == 'd' and $mn != NULL){
 						if ($cek_permissions_row->delete_permissions != 1) {
-							redirect(base_url('error/not_found'));
+							if ($ajax == 'Y') {
+								return 0;
+							}
+							else{
+								redirect(base_url('hmmm/not_found'));
+							}
 						}	
 					}
 					if ($kd == 'y' and $mn != NULL){
 						if ($cek_permissions_row->upload_permissions != 1) {
-							redirect(base_url('error/not_found'));
+							if ($ajax == 'Y') {
+								return 0;
+							}
+							else{
+								redirect(base_url('hmmm/not_found'));
+							}
 						}	
 					}
 					$create = $cek_permissions_row->create_permissions;
@@ -193,8 +226,8 @@ class Template
 			$this->sidebar_data['delete'] = $delete;
 			$this->sidebar_data['upload'] = $upload;
 			$this->sidebar_data['company'] = $cek->desc_company;
+			return;
 		}
-		return;
 	}
 
 	public function authlogin($kd=NULL,$mn=NULL,$just_ajax = NULL)
