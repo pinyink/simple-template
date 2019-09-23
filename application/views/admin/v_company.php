@@ -14,14 +14,14 @@
   	</section>
 
   	<!-- Main content -->
-  	<section class="content">
+  	<section class="content"  style="min-height:720px;">
   		<div class="row">
   			<div class="col-md-12 col-sm-12 col-xs-12">
 
   			</div>
   		</div>
 
-  		<!-- SELECT2 EXAMPLE -->
+
   		<div class="box box-info">
   			<div class="box-header with-border">
   				<div>

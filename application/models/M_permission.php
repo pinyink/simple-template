@@ -20,6 +20,7 @@ class M_permission extends CI_Model {
 		$this->db->select('a.id_nav_content, a.desc_nav_content,a.url');
 		$this->db->join($this->table2.' b', 'a.id_nav_content = b.nav_permissions', 'left');
 		$this->db->where($value);
+		$this->db->order_by('order_nav', 'asc');
 		return $this->db->get($this->table.' a');
 	}
 

@@ -95,12 +95,7 @@ class Template
 		$query = $CI->M_user->lihat($where);
 		$cek = $query->row();
 		if($query->num_rows() != 1){
-			if ($ajax == 'Y') {
-				return 0;
-			}
-			else{
-				redirect(base_url("login"));
-			}
+			redirect(base_url("login"));
 		}
 		else{
 			$data= array(
@@ -127,52 +122,27 @@ class Template
 					$cek_permissions_row = $cek_permissions->row();
 					if ($kd == 'r' and $mn != NULL) {
 						if ($cek_permissions_row->read_permissions != 1) {
-							if ($ajax == 'Y') {
-								return 0;
-							}
-							else{
-								redirect(base_url('hmmm/not_found'));
-							}
+							redirect(base_url('hmmm/not_found'));
 						}
 					}
 					if ($kd == 'u' and $mn != NULL){
 						if ($cek_permissions_row->update_permissions != 1) {
-							if ($ajax == 'Y') {
-								return 0;
-							}
-							else{
-								redirect(base_url('hmmm/not_found'));
-							}
+							redirect(base_url('hmmm/not_found'));
 						}	
 					}
 					if ($kd == 'c' and $mn != NULL){
 						if ($cek_permissions_row->create_permissions != 1) {
-							if ($ajax == 'Y') {
-								return 0;
-							}
-							else{
-								redirect(base_url('hmmm/not_found'));
-							}
+							redirect(base_url('hmmm/not_found'));
 						}	
 					}
 					if ($kd == 'd' and $mn != NULL){
 						if ($cek_permissions_row->delete_permissions != 1) {
-							if ($ajax == 'Y') {
-								return 0;
-							}
-							else{
-								redirect(base_url('hmmm/not_found'));
-							}
+							redirect(base_url('hmmm/not_found'));
 						}	
 					}
 					if ($kd == 'y' and $mn != NULL){
 						if ($cek_permissions_row->upload_permissions != 1) {
-							if ($ajax == 'Y') {
-								return 0;
-							}
-							else{
-								redirect(base_url('hmmm/not_found'));
-							}
+							redirect(base_url('hmmm/not_found'));
 						}	
 					}
 					$create = $cek_permissions_row->create_permissions;
@@ -251,6 +221,98 @@ class Template
 		$this->auth($where);
 	}
 
+	public function authlogin_ajax($kd=NULL,$mn=NULL)
+	{
+		$CI =& get_instance();
+		$where = array(
+			'b.session' => $CI->session->userdata('session'),
+			'd.allow_to_login'=> 0
+			);
+		$CI->load->helper('cookie');
+		$CI->input->set_cookie('key', $CI->security->get_csrf_token_name(),600);
+		$CI->input->set_cookie('value_key', $CI->security->get_csrf_hash(), 600);
+		$CI->load->model('M_user');
+		$CI->load->model('M_online');
+		$CI->load->model('M_permission');
+		$create = '';
+		$update = '';
+		$delete = '';
+		$upload = '';
+		$query = $CI->M_user->lihat($where);
+		$cek = $query->row();
+		$message = array();
+		if($query->num_rows() != 1){
+			$message['log'] = 0;
+			$message['detail'] = "user tidak ada";
+		}
+		else{
+			$data= array(
+				'id_user' => $cek->id_user,
+				'session' => $CI->session->userdata('session'),
+				'date_time' => date('Y-m-d H:i:s')
+				);
+			$CI->M_online->online($data);
+			$data_session = array(
+				'id' => $cek->id_user,
+				'session' => $CI->session->userdata('session'),
+				'username' => $cek->username,
+				'company' => $cek->company,
+				'level' => $cek->privilages_user
+			);
+			$CI->session->set_userdata($data_session);
+			$cek_permission = '';
+			if ($cek->privilages_user != 1 and $kd != NULL) {
+
+				$where_permission = array('priv_permissions'=>$cek->privilages_user,'nav_permissions'=>$mn);
+				if ($kd == 'r') {
+					$where_permission['read_permissions'] = 1;
+				}elseif ($kd == 'c') {
+					$where_permission['create_permissions'] = 1;
+				}elseif ($kd == 'u') {
+					$where_permission['update_permissions'] = 1;
+				}elseif ($kd == 'd') {
+					$where_permission['delete_permissions'] = 1;
+				}elseif ($kd == 'y') {
+					$where_permission['upload_permissions'] = 1;
+				}else{
+					echo "error code";
+				}
+
+				$cek_permissions = $CI->M_permission->check_permission($where_permission);
+				if ($cek_permissions->num_rows() != 1) {
+					$message['log'] = 0;
+					$message['detail'] = "Tidak Boleh Akses Halaman";
+				}
+				else{
+					$message['log'] = 1;
+					$message['detail'] = "auth sukses";
+
+					$cek_permissions_row = $cek_permissions->row();
+					$create = $cek_permissions_row->create_permissions;
+					$update = $cek_permissions_row->update_permissions;
+					$delete = $cek_permissions_row->delete_permissions;
+					$upload = $cek_permissions_row->upload_permissions;
+				}
+			}else{
+				$message['log'] = 1;
+				$message['detail'] = "auth sukses";
+				
+				$create = 1;
+				$update = 1;
+				$delete = 1;
+				$upload = 1;
+			}
+			$this->sidebar_data['update'] = $update;
+			$this->sidebar_data['create'] = $create;
+			$this->sidebar_data['delete'] = $delete;
+			$this->sidebar_data['upload'] = $upload;
+			$this->sidebar_data['company'] = $cek->desc_company;
+			$this->sidebar_data['priv'] = $cek->privilages_user;
+			$this->template_data['name'] = $CI->session->userdata('username');
+		}
+		return $message;
+	}
+
 	public function get_sidebar_data()
 	{
 		$data = array(
@@ -258,6 +320,7 @@ class Template
 			'delete' => $this->sidebar_data['delete'],
 			'update' => $this->sidebar_data['update'],
 			'create' => $this->sidebar_data['create'],
+			'upload' => $this->sidebar_data['upload'],
 			'user' => $this->template_data['name']
 			);
 		return $data;

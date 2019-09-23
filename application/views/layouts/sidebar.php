@@ -57,6 +57,7 @@
               <li><a href="<?php echo base_url().'admin/user'; ?>"> <i class="fa fa-mail-forward"></i> User</a></li>
               <li><a href="<?php echo base_url().'admin/priv'; ?>"> <i class="fa fa-mail-forward"></i> Privilages</a></li>
               <li><a href="<?php echo base_url().'admin/menu'; ?>"> <i class="fa fa-mail-forward"></i> Menu</a></li>
+              <li><a href="<?php echo base_url().'admin/company'; ?>"> <i class="fa fa-mail-forward"></i> Instansi</a></li>
               <li><a href="<?php echo base_url().'advance/set_email'; ?>"> <i class="fa fa-mail-forward"></i> Email</a></li>
             </ul>
           </li>
