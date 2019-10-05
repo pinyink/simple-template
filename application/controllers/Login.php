@@ -26,7 +26,7 @@ class login extends CI_Controller
 		}
 		$this->load->view('v_login');
 	}
-
+	// has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 	public function doLogin()
 	{
 		$this->form_validation->set_rules('txtUsername', 'Username', 'required|min_length[3]|max_length[16]');
