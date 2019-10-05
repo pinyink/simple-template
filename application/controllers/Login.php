@@ -9,6 +9,8 @@ class login extends CI_Controller
 		$this->load->model('M_user');
 		$this->load->model('M_online');
 		$this->load->helper('cookie');
+		$this->load->library('session');
+		$this->load->library('form_validation');
 		$this->input->set_cookie('key', $this->security->get_csrf_token_name(),600);
 		$this->input->set_cookie('value_key', $this->security->get_csrf_hash(), 600);
 	}

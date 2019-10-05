@@ -6,6 +6,10 @@ class Profil extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->library('session');
+		$this->load->library('form_validation');
+		$this->load->helper('form');
+		$this->load->library('template');
 		$this->load->model('M_profil');
 		$this->load->model('M_user');
 		$this->template->set("title","welcome to adminlte");

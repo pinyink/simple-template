@@ -7,6 +7,11 @@ class Menu extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->library('session');
+		$this->load->library('template');
+		$this->load->library('form_validation');
+		$this->load->helper('form');
+		
 		$this->load->model('M_fa');
 		$this->load->model('M_nav_menu');
 		$this->template->if_admin();
