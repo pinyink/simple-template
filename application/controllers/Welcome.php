@@ -18,29 +18,10 @@ class Welcome extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function __construct()
-	{
-		parent::__construct();
-		//Do your magic here
-		$this->load->helper('url');
-		$this->load->library('template');
-		$this->_init();
-	}
-
-	private function _init()
-	{
-		$this->template->css('assets/themes/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css');
-        $this->template->js('assets/themes/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js');
-        $this->template->js('assets/themes/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js');
-	}
-
 	public function index()
 	{
-		$data = array();
-		$this->template->set('title',"home bro");
-		$this->template->section('sidebar','layouts/sidebar');
-		$this->template->section('control_sidebar','layouts/control_sidebar');
-		$this->template->load('default','content','layouts/home', $data);
-		// $this->load->view('welcome_message');
+		$this->load->helper('url');
+
+		$this->load->view('welcome_message');
 	}
 }

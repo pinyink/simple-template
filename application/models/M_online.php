@@ -22,6 +22,12 @@ class M_online extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
+	public function online_api($data)
+	{
+		$this->db->replace('tbl_online_api', $data);
+		return $this->db->affected_rows();
+	}
+
 }
 
 /* End of file M_online.php */
